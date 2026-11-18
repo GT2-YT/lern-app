@@ -1,0 +1,2281 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lern-App</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%93%9A%3C/text%3E%3C/svg%3E">
+<style id="css">
+:root{--bg:#fbfaf7;--fg:#1f1f1c;--mu:#77766f;--c:#fff;--bd:#ece9e1;--ac:#2f6f4f;--ac2:#eaf3ed;--on:#fff;--bad:#b3402f;color-scheme:light dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151614;--fg:#ecebe6;--mu:#9d9c94;--c:#1f201d;--bd:#2d2e2a;--ac:#6fbf94;--ac2:#223028;--on:#10201a;--bad:#e6806f}}
+:root[data-theme="dark"]{--bg:#151614;--fg:#ecebe6;--mu:#9d9c94;--c:#1f201d;--bd:#2d2e2a;--ac:#6fbf94;--ac2:#223028;--on:#10201a;--bad:#e6806f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:540px;margin:0 auto;padding:14px 18px 96px}
+h1{margin:6px 0 4px;font-size:1.5em;font-weight:650;letter-spacing:-.01em}
+h2{margin:22px 0 2px;font-size:.74em;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);font-weight:600}
+.sub{color:var(--mu);margin:0 0 10px;font-size:.92em}.sp{margin-top:20px}
+button{font:inherit;color:inherit;cursor:pointer}
+.item{display:block;width:100%;text-align:left;background:var(--c);border:1px solid var(--bd);border-radius:14px;padding:12px 14px;margin:8px 0}
+.item b{display:block;font-weight:600}.m{display:block;color:var(--mu);font-size:.9em}
+.pr{margin-top:2px;font-size:.84em;color:var(--mu)}.pr span{display:block}.pr i{font-style:normal;font-weight:600;color:var(--fg);margin-right:5px}
+.card,.flash{background:var(--c);border:1px solid var(--bd);border-radius:12px;padding:14px;margin:10px 0}
+.card b{display:block;font-size:1.3em}.card span{color:var(--mu)}
+.flash{min-height:150px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;text-align:center;font-size:1.3em;width:100%;box-sizing:border-box}
+.flash hr{width:50%;border:0;border-top:1px solid var(--bd)}.flash span,.flash small{font-size:.75em;color:var(--mu)}.flash span{font-size:.85em}
+.bar{height:4px;background:var(--bd);border-radius:2px;overflow:hidden;margin:6px 0 12px}.bar i{display:block;height:100%;background:var(--ac)}
+.row{display:flex;gap:8px;margin:10px 0}
+input,textarea{width:100%;box-sizing:border-box;font:inherit;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--c);color:var(--fg)}
+.btn,.btn2{min-height:42px;padding:0 16px;border-radius:10px;border:1px solid var(--ac);background:var(--ac);color:var(--on);margin:6px 6px 0 0}
+.btn2{background:none;color:var(--fg);border-color:var(--bd)}
+.row .btn,.row .btn2{flex:1;margin:0}
+.back{background:none;border:0;color:var(--ac);padding:6px 0}
+.seg{display:inline-flex;margin:4px 0}.seg button{min-height:34px;padding:0 16px;border:1px solid var(--bd);background:none}
+.seg button:first-child{border-radius:10px 0 0 10px}.seg button:last-child{border-radius:0 10px 10px 0;margin-left:-1px}.seg .on{background:var(--ac2);border-color:var(--ac);color:var(--fg);position:relative}
+.opt{display:block;width:100%;text-align:left;min-height:46px;padding:10px 14px;margin:7px 0;border-radius:10px;border:1px solid var(--bd);background:var(--c)}
+.opt.good{border-color:var(--ac);background:var(--ac2)}.opt.wrong{border-color:var(--bad)}
+.lnks{margin-top:14px}.lnk{display:block;background:none;border:0;color:var(--mu);padding:6px 0;text-decoration:underline}
+.miss{border-bottom:1px solid var(--bd);padding:8px 0}.miss span,.miss small{display:block;color:var(--mu)}
+.ok{color:var(--ac)}.bad{color:var(--bad)}
+details{margin:26px 0}summary{cursor:pointer;color:var(--mu)}
+.row input{flex:1;min-width:0}
+.wv{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--c);border:1px solid var(--bd);border-radius:14px;padding:10px 14px;margin:8px 0}
+.wv b{display:block}.wv span,.wv small{display:block;color:var(--mu)}.wv small{font-size:.8em}
+.sm{min-height:34px;padding:0 12px;margin:0;flex:none}
+#tb{position:fixed;left:0;right:0;bottom:0;display:none;background:var(--bg);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom,0px)}
+#tb button{flex:1;min-height:50px;background:none;border:0;color:var(--mu)}
+#tb .on{color:var(--ac);font-weight:600}
+.login input{margin:6px 0}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<nav id="tb"></nav>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script id="mainjs">
+const U=[
+{n:"Einstieg",x:[{n:"Hablamos español",p:8,w:`¡Hablamos (español)!|Wir sprechen (Spanisch)!
+el español|Spanisch (Sprache)
+¡Hola!|Hallo!
+me llamo|ich heiße
+soy de|ich komme aus
+soy|ich bin
+de|aus, von
+Madrid|Hauptstadt Spaniens
+hablo|ich spreche
+y|und
+un poco (de)|ein bisschen
+el inglés|Englisch (Sprache)
+yo|ich
+Sevilla|Stadt in Spanien
+también|auch
+el alemán|Deutsch (Sprache)
+¿Qué tal?|Wie geht’s?
+La Coruña|Stadt in Spanien
+el gallego|Galicisch (Sprache)
+el francés|Französisch (Sprache)
+Lima|Hauptstadt Perus
+la capital|die Hauptstadt
+Perú|Peru
+el quechua|Quechua (Sprache)
+tú|du
+¿Cómo te llamas?|Wie heißt du?
+¿cómo?|wie?
+¿De dónde eres?|Woher bist/kommst du?
+¿de dónde?|woher?
+eres|du bist
+¿Qué lenguas hablas?|Welche Sprachen sprichst du?
+¿qué?|was?; welche?, welcher?, welches?
+la lengua|die Sprache
+hablas|du sprichst
+el ejemplo|das Beispiel`}]},
+{n:"Unidad 1",x:[
+{n:"¡Vamos!",p:10,w:`¡Vamos!|hier: Los geht’s!
+muy bien|sehr gut
+muy|sehr
+bien (adv.)|gut
+¿Cómo estás?|Wie geht’s?
+fenomenal (adj.)|großartig
+gracias|danke
+él/ella|er/sie
+¿quién? (sg.)|wer?
+es|er/sie ist
+¡Mira!|Sieh mal!
+un, una|ein, eine
+el amigo, la amiga|der Freund, die Freundin
+Alemania|Deutschland
+encantado, encantada|angenehm, sehr erfreut (Begrüßung)
+mucho gusto|angenehm, sehr erfreut (Begrüßung)
+¡Venga!|Los! hier: also
+¡Hasta luego!|Bis später!, Bis dann!
+¡Adiós!|Auf Wiedersehen!
+¡Buenos días!|Guten Tag!
+¡Buenas tardes!|Guten Tag! / Guten Abend!
+¡Buenas noches!|Guten Abend! / Gute Nacht!
+más o menos|mehr oder weniger, hier: geht so
+mal (adv.)|schlecht
+fatal (adj.)|mies, furchtbar
+el compañero, la compañera (de clase)|der Mitschüler, die Mitschülerin
+la clase|die Klasse, der Unterricht
+el compañero de trabajo, la compañera de trabajo|der Arbeitskollege, die Arbeitskollegin
+el trabajo|die Arbeit`},
+{n:"Texto A",p:13,w:`estudiar|lernen, hier: zur Schule gehen, studieren
+o|oder
+trabajar|arbeiten
+charlar|quatschen, sich unterhalten
+en|in, an, auf
+la plaza|der Platz
+no|nein
+no|nicht; kein, keine
+aquí|hier
+pero|aber
+ahora|jetzt
+mi, mis (pl.)|mein, meine
+la madre|die Mutter
+ser|sein
+¿verdad?|stimmt’s?, nicht wahr?
+sí|ja
+el instituto|die weiterführende Schule
+todavía no|noch nicht
+todavía|noch (immer)
+¡Oye! (fam.)|Hör mal!, hier: Sag mal!
+hablar|sprechen
+pues|naja, also
+claro (adv.)|(na) klar, natürlich
+el padre|der Vater
+Múnich|München
+por eso|deshalb
+en casa|zu Hause
+la casa|das Haus
+genial (adj.)|genial
+difícil (adj.)|schwierig
+quedar|sich verabreden, sich treffen
+practicar algo|etw. üben
+vale|okay, in Ordnung
+la universidad|die Universität
+la cafetería|die Cafeteria
+el hotel|das Hotel
+la empresa|das Unternehmen, der Betrieb
+el restaurante|das Restaurant
+el supermercado|der Supermarkt
+la discoteca|die Diskothek
+tu, tus (pl.)|dein, deine
+el señor, la señora|der Herr, die Frau (Anrede)
+Marruecos|Marokko
+el árabe|Arabisch (Sprache)`},
+{n:"Texto B",p:16,w:`preparar algo|etw. vorbereiten
+el examen, los exámenes (pl.)|die Prüfung, der Test
+significar algo|etw. bedeuten
+la biblioteca|die Bibliothek
+la pregunta|die Frage
+¿cuándo?|wann?
+el examen de Inglés|die Englischklassenarbeit
+Inglés|Englisch (Schulfach)
+mañana|morgen
+comprender algo|etw. verstehen
+el texto|der Text
+leer algo|etw. lesen
+mucho (adv.)|viel, sehr
+así|so
+aprender algo|etw. lernen
+¿por qué?|warum?
+juntos, juntas|zusammen
+recibir algo|etw. bekommen, erhalten
+el mensaje|die Nachricht
+¡Buena idea!|Gute Idee!
+entonces|dann, also
+escribir algo|etw. schreiben
+el móvil|das Handy
+el momento|der Moment
+solo|nur
+¡Ya!|hier: Jetzt hab ich’s!
+vivir (en + sust.)|(in + S.) leben, wohnen
+cerca|nah, in der Nähe
+primero|zuerst
+después|danach, später
+de acuerdo|einverstanden
+la gramática|die Grammatik
+el vocabulario|der Wortschatz
+la película|der Film
+el regalo|das Geschenk
+la letra (de una canción)|der (Lied)text
+España|Spanien
+bailar|tanzen
+comer algo|etw. essen
+descansar|sich entspannen, ausruhen
+comprar algo|etw. kaufen
+tomar algo|etw. nehmen, hier: etw. trinken
+el diálogo|der Dialog
+el tema|das Thema
+el ejercicio|die Übung`},
+{n:"Texto C",p:19,w:`¿cuál?, ¿cuáles?|welche?, welcher?, welches?
+el número de teléfono|die Telefonnummer
+el número|die Nummer, die Zahl
+el teléfono|das Telefon
+subir algo|etw. hochgehen, hochladen (Computer)
+la escalera|die Treppe
+el vecino, la vecina|der Nachbar, die Nachbarin
+nuevo, nueva|neu
+en serio|wirklich, im Ernst
+Administración y Finanzas|Verwaltung und Finanzen (Studienfach)
+Informática y Programación|Informatik und Programmierung (Studienfach)
+necesitar algo|etw. brauchen
+la ayuda|die Hilfe
+con|mit
+el ordenador|der Computer
+el programa|das Programm
+la estadística|die Statistik
+funcionar|funktionieren
+para + inf.|um zu + Inf.
+el café|der Kaffee
+Mi móvil es el…|Meine Handynummer ist …
+¿Cómo se escribe…?|Wie schreibt man …?
+Se escribe…|Man schreibt es …
+perfecto (adv.)|perfekt
+¡Hasta mañana!|Bis morgen!
+bueno|hier: also
+nosotros, nosotras|wir
+algo|etwas
+la puerta|die Tür
+el nombre|der Vorname`}]},
+{n:"Unidad 2",x:[
+{n:"¡Vamos!",p:22,w:`la gente (sg.)|die Leute
+el barrio|der Stadtteil
+la familia|die Familie
+Tengo … años.|Ich bin … Jahre alt.
+tengo|ich habe
+el año|das Jahr
+los hermanos (pl.)|die Geschwister
+los padres (pl.)|die Eltern
+la calle|die Straße
+el alumno de bachillerato, la alumna de bachillerato|der Oberstufenschüler, die Oberstufenschülerin
+el alumno, la alumna|der Schüler, die Schülerin
+el bachillerato|das Abitur
+su, sus (pl.)|sein/e, ihr/e
+el hermano, la hermana|der Bruder, die Schwester
+Andalucía|Andalusien
+la escuela de formación profesional|die Berufsschule
+la escuela|die Schule
+la formación profesional (= FP fam.)|die Berufsausbildung
+pequeño, pequeña|klein
+se llama|er/sie/es heißt
+ya|schon
+inteligente|intelligent
+¿Cuántos años tienes?|Wie alt bist du?
+¿dónde?|wo?
+¿con quién?|mit wem?
+el apellido|der Nachname
+la dirección, las direcciones (pl.)|die Adresse
+el código postal|die Postleitzahl
+la ciudad|die Stadt
+el e-mail|die E-Mail(-Adresse)
+la arroba|das @-Zeichen
+el guion bajo|der Unterstrich
+el guion|der Bindestrich
+el punto|der Punkt`},
+{n:"Texto A",p:25,w:`la foto|das Foto
+creo que|ich glaube, dass
+que (conj.)|hier: dass
+porque|weil
+el recreo|die Pause
+querer algo (e → ie)|etw. wollen
+¡Perdón!|Entschuldigung!
+el novio, la novia|der (feste) Freund, die (feste) Freundin
+¡Qué + adj./adv.!|Wie + Adj./Adv.!
+guapo, guapa|hübsch
+simpático, simpática|sympathisch
+París|Paris
+guay (fam.)|cool
+tener algo (e → ie)|etw. haben
+más|mehr
+¿quiénes? (pl.)|wer?
+este/esta es, estos/estas son|das ist, das sind
+¡Vaya!|Oh!, Ach!, Wow!
+serio, seria|ernst
+estricto, estricta|streng
+¡Qué va!|Ach was!, Überhaupt nicht!
+en realidad|eigentlich, in Wahrheit
+divertido, divertida|lustig
+alegre|fröhlich
+tranquilo, tranquila|ruhig
+bastante|ziemlich
+tímido, tímida|schüchtern
+los abuelos|die Großeltern
+el/la artista|der Künstler, die Künstlerin
+creativo, creativa|kreativ
+interesante|interessant
+aburrido, aburrida|langweilig
+el abuelo, la abuela|der Opa, die Oma
+el tío, la tía|der Onkel, die Tante
+el primo, la prima|der Cousin, die Cousine
+el mejor amigo, la mejor amiga|der beste Freund, die beste Freundin
+majo, maja|nett, sympathisch
+vago, vaga|faul`},
+{n:"Texto B",p:28,w:`el/la joven, los jóvenes (pl.)|der/die Jugendliche
+nuestro, nuestra|unser, unsere
+vuestro, vuestra|euer, eure
+el grupo|die Gruppe
+el internet|das Internet
+grande|groß
+estar|sein, sich befinden
+cerca (de) (adv.)|in der Nähe (von)
+el centro|das Zentrum
+ruidoso, ruidosa|laut
+mucho, mucha (adj.)|viel, viele
+la vida|das Leben
+hay|es gibt
+la zona|die Zone, der Bereich
+poco, poca (adj.)|wenig, wenige
+el tráfico|der Verkehr
+el edificio|das Gebäude
+viejo, vieja|alt
+el parque|der Park
+moderno, moderna|modern
+el polideportivo|das Sportzentrum
+el centro comercial|das Einkaufszentrum
+la tienda|der Laden
+la panadería|die Bäckerei
+el kiosco|der Kiosk
+buscar algo|etw. suchen
+el gimnasio|das Fitnessstudio
+la heladería|die Eisdiele
+el helado|das Eis
+al lado de|neben
+lejos (de)|weit weg (von)
+el pueblo|das Dorf
+antiguo, antigua|alt, altertümlich
+bonito, bonita|schön
+feo, fea|hässlich`},
+{n:"Texto C",p:31,w:`¿adónde?|wohin?
+ir (a)|gehen (zu, nach)
+invitar (a)|einladen (zu, nach, in)
+a|nach, zu, an, in
+hoy|heute
+poder (o → ue)|können
+probar algo (o → ue)|etw. probieren, ausprobieren
+gratis|kostenlos
+el rocódromo|die Kletterhalle
+el taller|der Workshop, die Werkstatt
+el slackline|das Slacklinen (Sport)
+la piscina|das Schwimmbad
+costar (o → ue)|kosten
+el euro|der Euro
+el centro cultural|das Kulturzentrum
+cultural|kulturell, Kultur- (+ S.)
+la presentación|die Vorstellung, Präsentation
+el libro|das Buch
+el teatro|das Theater
+el cine|das Kino
+el museo|das Museum
+la visita guiada|die Führung
+por|hier: durch
+siempre|immer
+hacer algo|etw. machen
+la cosa|die Sache
+casi|fast
+a veces|manchmal
+tener que + inf. (e → ie)|etw. tun müssen
+por ejemplo|zum Beispiel
+el chico, la chica|der Junge, das Mädchen
+nunca|nie
+el deporte|der Sport
+el abrazo|die Umarmung, hier: Liebe Grüße
+para|für
+normalmente (adv.)|normalerweise`}]},
+{n:"Unidad 3",x:[
+{n:"¡Vamos!",p:40,w:`español, española|spanisch
+el tiempo libre|die Freizeit
+el tiempo|die Zeit, auch: das Wetter
+libre|frei
+salir|ausgehen
+escuchar algo / a alguien|etw./jdn hören, jdm zuhören
+la música|die Musik
+viajar|reisen
+usar algo|etw. benutzen
+ver algo / a alguien|etw./jdn sehen, ansehen
+la televisión (= la tele fam.)|der Fernseher
+el concierto|das Konzert
+la radio|das Radio
+el bar|die Bar, Kneipe
+el periódico|die Zeitung
+la revista|die Zeitschrift
+la exposición, las exposiciones (pl.)|die Ausstellung
+jugar con / a algo (u → ue)|(mit) etw. spielen
+el videojuego|das Videospiel
+(a mí) me gusta (mucho) + inf.|ich mache (sehr) gerne …
+No me gusta nada + inf.|Ich mache überhaupt nicht gerne …
+no … nada|überhaupt nicht, nichts
+¿te gusta + inf.?|machst du gerne …?
+A mí también/tampoco.|hier: Ich auch (nicht).
+el fútbol|der Fußball (Sportart)
+tampoco|auch nicht
+¿Y a ti?|Und dir? hier: Und du?
+los domingos|sonntags
+tocar + instrumento|spielen (Instrument)
+la guitarra|die Gitarre`},
+{n:"Texto A",p:43,w:`chatear|chatten
+la fiesta|die Party
+el plan|der Plan
+Alemán|Deutsch (Fach)
+el chat|der Chat
+¿Qué pasa?|Was ist los?, Was gibt’s?
+os gusta/n + sust.|ihr mögt + S.
+gustar + inf.|etw. gerne tun
+el rap|der Rap
+súper + adj. (fam.)|total, super + Adj.
+hacer cola|sich anstellen
+la cola|die (Warte-)Schlange
+la entrada|die Eintrittskarte, der Eingang
+¡Mola! (fam.)|Das ist ja cool!
+¡Qué + sust.!|Was für ein/e + S.!
+la sorpresa|die Überraschung
+contestar (algo)|(etw.) (be)antworten
+estar nervioso, estar nerviosa|nervös sein, aufgeregt sein
+estar cansado, estar cansada|müde sein, erschöpft sein
+es que|es ist nämlich so, dass
+no entiendo nada|ich verstehe nichts
+entender algo / a alguien (e → ie)|etw./jdn verstehen
+tomar el pelo a alguien (fam.)|jdn auf den Arm nehmen
+pasar|verbringen (Zeit)
+el fin de semana, los fines de semana (pl.)|das Wochenende
+pasar por (casa de…)|bei (jdm zu Hause) vorbeigehen
+estar feliz, estar felices (pl.)|glücklich sein
+dar algo a alguien|jdm etw. geben
+la hora|die Stunde, Uhrzeit
+mandar algo|etw. schicken
+el enlace|hier: der Link
+estar contento, estar contenta|zufrieden sein
+unos días|einige Tage
+unos, unas (pl.)|einige, ein paar
+el minuto|die Minute
+estar enfermo, estar enferma|krank sein`},
+{n:"Texto B",p:46,w:`la ropa|die Kleidung
+la entrevista|das Interview, hier: das Vorstellungsgespräch
+la prenda|das Kleidungsstück
+antes de + sust.|vor (+ S.)
+la pandilla|die Clique
+pasear por + Ort|spazieren gehen/fahren durch/an + Ort
+¡Qué camisa más chula!|Was für ein hübsches Hemd!
+la camisa|das Hemd
+chulo, chula|hier: toll, super
+me encanta/n|etw. toll finden
+este, esta, estos, estas|dieser, diese, dieses (hier)
+rosa (inv.)|rosa (Farbe)
+de manga corta|kurzärmelig
+la manga|der Ärmel
+corto, corta|kurz
+el color|die Farbe
+gustar|gefallen
+caro, cara|teuer
+preferir algo (e → ie)|etw. lieber mögen, etw. (einer Sache) vorziehen
+blanco, blanca|weiß
+azul|blau
+echar una mano a alguien|jdm helfen
+las prácticas (pl.)|das Praktikum
+entrar (en)|hineingehen, eintreten (in)
+a ver|mal sehen
+¿Qué te parece…?|Wie findest du …?
+parecer algo a alguien (c → zc)|meinen, wirken
+ese, esos, esa/s|dieser, diese, dieses (da)
+el pantalón, los pantalones (pl.)|die Hose
+marrón|braun
+ahí|da, dort
+gris|grau
+elegante|elegant
+barato, barata|billig
+cómodo, cómoda|bequem
+¿cuánto + verbo?|wie viel + Verb?
+estar de oferta|im Angebot sein
+la oferta|das Angebot
+el zapato|der Schuh
+de cuero|aus Leder
+el cuero|das Leder
+práctico, práctica|praktisch
+de buena/mala calidad|guter/schlechter Qualität
+ecológico, ecológica|ökologisch
+el cinturón|der Gürtel
+ir bien con|zusammenpassen (z. B. bei Kleidung)
+la chaqueta|die Jacke
+la talla|die Größe (Kleidung)
+llevar algo|etw. mitnehmen, etw. tragen (Kleidung)
+¿Cuánto es?|Wie viel macht das?
+¡De nada!|Bitte sehr!, Gern geschehen!
+la (primera) cita|die (erste) Verabredung
+la boda|die Hochzeit
+naranja|orange
+violeta|violett
+verde|grün
+amarillo, amarilla|gelb
+negro, negra|schwarz
+rojo, roja|rot
+la camiseta|das T-Shirt
+el jersey, los jerséis (pl.)|der Pullover
+los vaqueros|die Jeanshose
+el vestido|das Kleid`},
+{n:"Texto C",p:49,w:`el proyecto|das Projekt
+el curso|der Kurs, auch: der Jahrgang
+la película de aventuras|der Actionfilm
+el niño, la niña|das Kind
+bajo, baja|niedrig, hier: klein (Körpergröße)
+delgado, delgada|dünn, schlank
+el pelo|das Haar
+largo, larga|lang
+castaño, castaña|braun (Haarfarbe)
+rubio, rubia|blond
+el ojo|das Auge
+la publicidad|die Werbung
+que|der, die, das (Relativpronomen)
+la experiencia|die Erfahrung
+la campaña|die Kampagne
+pelirrojo, pelirroja|rothaarig
+liso, lisa|glatt (Haare)
+el compañero de tándem, la compañera de tándem|der Tandempartner, die Tandempartnerin
+nadar|schwimmen
+alto, alta|groß, hoch
+las gafas (pl.)|die Brille
+rizado, rizada|lockig
+el/la modelo (inv.)|das Model
+describir algo / a alguien|etw./jdn beschreiben
+la estatura|die Körpergröße
+claro, clara|hell
+el tatuaje|die Tätowierung
+el piercing|das Piercing
+la nariz|die Nase
+el aspecto físico|das Aussehen
+la moda|die Mode`}]},
+{n:"Unidad 4",x:[
+{n:"¡Vamos!",p:52,w:`el día a día|der Alltag
+el día|der Tag
+¿Qué hora es?|Wie spät ist es?
+Es la… / Son las….|Es ist … Uhr.
+¿A qué hora…?|Um wie viel Uhr …?
+empezar algo (e → ie)|etw. anfangen, beginnen
+a la… / a las…|um …
+terminar algo|enden, etw. beenden
+abrir algo|etw. öffnen
+cerrar algo (e → ie)|etw. schließen
+(las nueve) de la noche|(neun Uhr) abends
+la noche|die Nacht, der (späte) Abend
+el festival|das Festival
+de… a… / del… al…|von … bis … / vom … bis zum …
+el mayo|der Mai
+enero|Januar
+febrero|Februar
+marzo|März
+abril|April
+junio|Juni
+julio|Juli
+agosto|August
+septiembre|September
+octubre|Oktober
+noviembre|November
+diciembre|Dezember
+¿Qué día…?|An welchem Tag …? / Welcher Tag …?
+la mañana|der Morgen
+el lunes|(am) Montag
+el martes|(am) Dienstag
+el miércoles|(am) Mittwoch
+el jueves|(am) Donnerstag
+el viernes|(am) Freitag
+el sábado|(am) Samstag
+el domingo|(am) Sonntag
+el fin de semana|(am) Wochenende
+el maratón|der Marathon
+la feria (de trabajo)|die (Job-)Messe
+la Noche en Blanco|Kulturereignis in Madrid
+el… de…|am … Datum
+el cumpleaños (= el cumple fam.)|der Geburtstag
+el carnaval|der Karneval
+las vacaciones (pl.)|die Ferien, der Urlaub
+público, pública|öffentlich`},
+{n:"Texto A",p:55,w:`el sobresaliente|Sehr gut (Schulnote)
+la nota final|die Endnote
+la nota|die Note
+como|wie
+la Selectividad|Eignungsprüfung für die Aufnahme an einer spanischen Universität
+el empollón, la empollona|der Streber, die Streberin
+pensar (en algo/alguien) (e → ie)|(an etw./jdn) denken
+normal|normal
+la asignatura|das Schulfach
+favorito, favorita|Lieblings- (+ S.)
+el profesor, la profesora (= el/la profe fam.)|der Lehrer, die Lehrerin
+todos, todas (pron.)|alle (m./f.)
+explicar algo (a alguien)|(jdm) etw. erklären
+Ciencias (f. pl.)|(Natur-)Wissenschaften (Schulfach)
+la (asignatura) optativa|das Wahlfach
+optativo, optativa|fakultativ, Wahl- (+ S.)
+Biología (f. pl.)|Biologie (Schulfach)
+Química (f. pl.)|Chemie (Schulfach)
+Medicina (f. pl.)|Medizin (Studiengang)
+el secreto|das Geheimnis
+sacar (buenas/malas) notas|(gute/schlechte) Noten bekommen
+bueno, buena|gut
+malo, mala|schlecht
+importante|wichtig
+poner atención (a algo)|(auf etw.) achten, aufpassen
+la atención|die Aufmerksamkeit
+poner algo|etw. stellen, setzen, legen
+preguntar|fragen
+todos los días|täglich, jeden Tag
+todos los / todas las + sust.|jede/r + S., alle + S.
+todo el / toda la + sust.|der/die/das ganze + S.
+suficiente|genug, ausreichend
+la vez, las veces (pl.)|das Mal
+por|hier: pro
+la semana|die Woche
+jugar a algo (u → ue)|etw. spielen (Sport)
+el voleibol|Volleyball (Sportart)
+el consejo|der Rat(schlag), Tipp
+los deberes (pl.)|die Hausaufgaben
+con tiempo|(früh)zeitig
+dormir (o → ue)|schlafen
+otro, otra + sust.|der/die/das andere + S., auch: noch ein/e`},
+{n:"Texto B",p:58,w:`el dinero|das Geld
+el próximo, la próxima + sust.|der/die/das nächste + S.
+ir a + inf.|etw. tun werden
+el mundo|die Welt
+¡Qué pasada!|Cool!, Abgefahren!, Super!
+saber (+ inf.)|wissen, können
+¡Mola mogollón! (fam.)|Das ist (der) Hammer!
+venir (e → ie)|kommen
+lo siento|es/das tut mir leid
+¡Qué pena!|Schade!
+¡Anda!|Los!, Komm schon!
+quizás|vielleicht
+el tío, la tía (fam.)|der Kerl, die Frau (informelle Anrede in Spanien)
+cocinar algo|etw. kochen
+¡No me digas! (fam.)|Ach nee!, Sag bloß!
+otra vez|noch einmal, (schon) wieder
+por favor|bitte
+preferir + inf. (e → ie)|lieber (+ Inf.) wollen
+¿Qué tal si…?|Wie wäre es, wenn …?
+decidir algo|(etw.) entscheiden
+realmente|wirklich, echt
+¡Qué palo!|Wie doof!
+tener ganas de + inf.|Lust haben, etw. zu tun
+el aeropuerto|der Flughafen
+hasta|bis`},
+{n:"Texto C",p:61,w:`levantarse|aufstehen
+acostarse (o → ue)|ins Bett gehen, sich hinlegen
+ducharse|(sich) duschen
+por la mañana/tarde/noche|am Morgen/Nachmittag/Abend, in der Nacht
+la tarde|der Nachmittag
+Piura|Region im Norden von Peru
+el/la mayor|der/die Älteste
+ayudar a alguien|jdm helfen
+aunque|obwohl
+temprano|früh
+ponerse algo|etw. anziehen
+el uniforme (escolar)|die (Schul-)Uniform
+mientras|während
+el desayuno|das Frühstück
+después de + inf.|nach dem + Inf.
+desayunar|frühstücken
+(ir) a pie|zu Fuß (gehen)
+tomar algo|etw. nehmen (Verkehrsmittel)
+el autobús (= el bus fam.)|der Bus
+perder (e → ie)|verlieren, hier: verpassen
+apurarse (lat. am.)|sich beeilen
+llegar tarde|zu spät kommen
+llegar|kommen, ankommen
+tarde|spät
+cuando|(immer) wenn, als
+llover (o → ue)|regnen
+quedarse|bleiben, unterkommen
+aguantar algo / a alguien|etw./jdn aushalten, ertragen
+sin embargo|trotzdem
+quejarse (de algo)|sich beschweren (über etw.)
+recoger algo / a alguien|etw./jdn abholen
+el campo|das Land, hier: das Feld
+poco, poquito (adv. fam.)|wenig
+el papá (lat. am., fam.)|der Papa
+traer algo (a alguien)|(jdm) etw. (mit-)bringen
+antes de + inf.|bevor
+si|ob`}]},
+{n:"Unidad 5",x:[
+{n:"¡Vamos!",p:70,w:`el Parque del Buen Retiro|Park im Zentrum von Madrid
+si|wenn, falls
+perfecto, perfecta|perfekt
+¡Es muy chulo!|Das ist total cool!
+caminar|wandern, gehen
+alquilar|mieten, vermieten
+la bicicleta (= bici fam.)|das Fahrrad
+el Rastro|bekannter Flohmarkt in Madrid
+el problema (m.)|das Problem
+tener cuidado|vorsichtig sein
+la mochila|der Rucksack
+interesar (algo) a alguien|jdn (etw.) interessieren
+el arte|die Kunst
+visitar algo / a alguien|etw./jdn besuchen, besichtigen
+el/la … más + adj.|der/die/das + Superlativ
+el cuadro|das Bild
+Pablo Picasso|spanischer Maler, Grafiker und Bildhauer
+Salvador Dalí|spanischer Maler, Grafiker und Bildhauer
+Joan Miró|spanischer Maler, Grafiker und Bildhauer
+encontrar algo / a alguien (o → ue)|etw./jdn finden
+Malasaña|Stadtteil von Madrid
+la tapa|die Tapa (kleines spanisches Gericht)
+el tour|die Tour
+(estar) rico, rica|hier: lecker
+famoso, famosa (por)|berühmt (für)
+el ambiente|die Stimmung
+alternativo, alternativa|alternativ
+vale la pena|es lohnt sich
+el estadio|das Stadion`},
+{n:"Texto A",p:73,w:`la habitación|das Zimmer
+Chamberí|Stadtteil von Madrid
+compartido, compartida|Gemeinschafts-
+el metro cuadrado (m²)|der Quadratmeter (m²)
+el metro|der Meter, auch: die U-Bahn
+el mes, los meses (pl.)|der Monat
+los gastos|hier: die Nebenkosten
+estar incluido, estar incluida|inbegriffen sein
+interior|innere/r, inneres; Innen-
+la estancia|der Aufenthalt
+mínimo, mínima|hier: Mindest-
+estar amueblado, estar amueblada|möbliert sein
+Retiro|Stadtteil von Madrid
+el piso compartido|die WG (Wohngemeinschaft)
+el piso|die Wohnung, auch: das Stockwerk, die Etage
+exterior|äußere/r, äußeres
+el balcón|der Balkon
+estar semiamueblado, estar semiamueblada|teilmöbliert sein
+la cama|das Bett
+el armario|der Schrank
+la ventana|das Fenster
+el sofá|das Sofa
+la lámpara|die Lampe
+la mesa|der Tisch
+la silla|der Stuhl
+hablar por teléfono|telefonieren
+ajá|aha
+eso|das
+conocer algo / a alguien (c → zc)|etw./jdn kennen, kennen lernen
+más (central) que|(zentral)er als (Vergleich)
+central|zentral
+menos (grande) que|weniger (groß) als (Vergleich)
+dar al patio/a la calle|hier: zum Hof / zur Straße liegen (Wohnung)
+el patio|der (Innen-)Hof
+luminoso, luminosa|hell
+tan|so
+mejor (que)|besser (als)
+creer que|glauben, dass
+tan (grande) como|so (groß) wie (Vergleich)
+el alquiler|die Miete
+el total|der Gesamtbetrag
+la calefacción|die Heizung, hier: Heizkosten
+sin|ohne
+más|hier: zuzüglich
+el compañero, la compañera|hier: der Mitbewohner, die Mitbewohnerin
+encima (del / de la)|über
+debajo (del / de la)|unter
+delante (del / de la)|vor
+detrás (del / de la)|hinter
+al lado (del / de la)|neben
+entre el… y el…|zwischen`},
+{n:"Texto B",p:76,w:`la oficina|das Büro
+la parada|die Haltestelle
+coger algo|etw. nehmen
+la línea (de metro)|die (U-Bahn-)Linie
+en dirección a + sust.|in Richtung + S.
+bajarse|hier: aussteigen
+quinto, quinta|fünfte/r, fünftes
+el primero, la primera (1º, 1ª)|der/die erste
+el segundo, la segunda (2º, 2ª)|der/die zweite
+el tercero, la tercera (3º, 3ª)|der/die dritte
+el cuarto, la cuarta (4º, 4ª)|der/die vierte
+el sexto, la sexta (6º, 6ª)|der/die sechste
+el séptimo, la séptima (7º, 7ª)|der/die siebte
+el octavo, la octava (8º, 8ª)|der/die achte
+el noveno, la novena (9º, 9ª)|der/die neunte
+el décimo, la décima (10º, 10ª)|der/die zehnte
+la farmacia|die Apotheke
+por aquí|hier (in der Nähe, entlang)
+cruzar algo|etw. überqueren, kreuzen
+seguir (e → i)|hier: weitergehen
+todo recto|geradeaus
+la esquina|die Ecke (Straße)
+a la derecha (de)|rechts (von)
+a la izquierda (de)|links (von)
+girar (en)|abbiegen (in)
+la llamada telefónica|das Telefonat
+esperar algo / a alguien|auf etw./jdn warten
+preguntar|fragen
+el GPS|das Navigationssystem
+a mano derecha/izquierda|rechter/linker Hand
+repetir|wiederholen
+disculpar algo|etw. entschuldigen
+cargar algo|hier: etw. (auf)laden
+el folleto|der (Werbe-)Prospekt
+la información|die Information
+la página|die Seite
+la estación de trenes|der Bahnhof
+la estación|der Bahnhof, die Station
+el tren|der Zug
+Ahora se pone.|Ich gebe ihn/sie dir/Ihnen weiter. (am Telefon)
+ponerse al teléfono|ans Telefon gehen
+¿De parte de quién?|Wer ist dran?, Wer spricht da? (beim Telefonieren)
+¿Diga?|hier: Hallo? (am Telefon)`},
+{n:"Texto C",p:79,w:`el sitio|der Platz, Ort
+el café con leche|der Milchkaffee
+la leche|die Milch
+cobrar algo|etw. kassieren, verdienen (Geld)
+Aquí tienes.|Bitte. (beim Bezahlen)
+el blog|der Blog
+sobre|über
+la cultura|die Kultur
+desde hace|seit (Zeitraum)
+disfrutar de algo|etw. genießen
+el/la mejor + sust.|der/die/das beste + S.
+la vista|die Aussicht
+la Plaza Mayor (Madrid)|zentraler Platz in Madrid
+turístico, turística|touristisch
+el lugar|der Ort, die Stelle
+típico, típica|typisch
+el mercado|der Markt
+el producto|das Produkt
+fresco, fresca|frisch
+la carne|das Fleisch
+el pescado|der Fisch
+la verdura|das Gemüse
+tanto, tanta + sust.|so viel/e + S.
+la tortilla de patatas|Kartoffelomelett
+la patata|die Kartoffel
+después de + sust.|nach + S.
+la chocolatería|die Konditorei
+el chocolate con churros|frittiertes Spritzgebäck mit Schokolade
+el chocolate|die Schokolade
+conocido, conocida|bekannt
+riquísimo, riquísima|sehr lecker
+adj. + ísimo|sehr + Adj.
+especial|besonders, speziell
+el templo|der Tempel
+la puesta del sol|der Sonnenuntergang
+el sol|die Sonne
+romántico, romántica|romantisch
+por dinero|gegen Bezahlung
+presentar algo|etw. präsentieren, zeigen
+la obra de teatro|das Theaterstück
+durar|dauern
+entre|zwischen
+la persona|die Person
+según|laut, gemäß
+la catedral|die Kathedrale
+el palacio|der Palast
+la plaza de toros|die Stierkampfarena
+la paella|die Paella
+un tercio (1/3)|ein Drittel
+dos tercios (2/3)|zwei Drittel
+un cuarto (1/4)|ein Viertel
+tres cuartos (3/4)|drei Viertel
+la mitad (1/2)|die Hälfte`}]},
+{n:"Unidad 6",x:[
+{n:"¡Vamos!",p:82,w:`el país|das Land
+andino, andina|Anden-, andin
+el primer, la primera + sust.|der/die/das erste + S.
+el/la habitante|der Einwohner, die Einwohnerin
+hace|vor + Zeitangabe
+más de|mehr als + Zahl
+desde|von, ab, seit (Zeitpunkt)
+el siglo|das Jahrhundert
+el/la inca|der/die Inka
+la región, las regiones (pl.)|die Region
+el sur|der Süden
+América Latina|Lateinamerika
+en…|hier: im Jahr …
+Cristóbal Colón|Christoph Kolumbus
+América|Amerika
+Francisco Pizarro|spanischer Eroberer
+el hombre|der Mann, Mensch, hier: Soldat
+la conquista|die Eroberung
+el Imperio inca|das Inkareich
+el imperio|das Imperium, Reich
+inca (adj.)|Inka-
+el conquistador, la conquistadora|der Eroberer, die Eroberin
+matar a alguien|jdn töten
+Atahualpa|letzter Herrscher des Inkareiches
+pasar a ser algo|zu etw. werden
+la colonia|die Kolonie
+lograr algo|etw. erreichen
+la independencia|die Unabhängigkeit
+ganar algo|etw. gewinnen, verdienen (Geld)
+las elecciones (pl.)|die Wahlen
+el presidente, la presidenta|der Präsident, die Präsidentin
+indígena (inv. adj.)|indigen
+la historia|die Geschichte
+el escritor, la escritora|der Schriftsteller, die Schriftstellerin
+peruano, peruana|peruanisch
+Mario Vargas Llosa|peruanischer Schriftsteller
+el Premio Nobel|der Nobelpreis
+la literatura|die Literatur
+el boom|der Aufschwung
+gastronómico, gastronómica|gastronomisch
+el destino|das (Reise-)Ziel, Schicksal`},
+{n:"Texto A",p:84,w:`el viaje|die Reise
+la plaza Mayor (Lima)|zentraler Platz in Lima
+el millón, los millones (pl.)|die Million
+el mismo, la misma + sust.|der/die/das gleiche + S.; derselbe, dieselbe, dasselbe + S.
+el plato nacional|das Nationalgericht
+el plato|das Gericht, der Teller
+nacional|national
+el ceviche|peruanisches Fischgericht
+la hamburguesa|der Hamburger (Essen)
+la playa|der Strand
+fui|ich war, ich ging (indefinido, 1. Pers. Sg. von ser und ir)
+estar solo, estar sola|allein sein
+la fruta|das Obst, die Frucht
+Europa|Europa
+el tipo de + sust.|die Art, die Sorte + S.
+la forma|die Form
+la papa (lat. am.)|die Kartoffel
+la plata|das Silber, lat. am.: das Geld
+la cumbia|südamerikanischer Musikstil und Tanz
+divertirse (e → ie)|sich amüsieren, Spaß haben
+pasado, pasada (adj.)|letzte, letzten, letztes
+Cuzco|Stadt im Süden von Peru
+fundar algo|etw. gründen
+destruir algo (i → y)|etw. zerstören
+todo (adv.)|alles
+construir algo (i → y)|etw. bauen
+la iglesia|die Kirche (Gebäude, Institution)
+los restos (pl.)|die Reste, Überreste
+la arquitectura|die Architektur
+histórico, histórica|historisch
+¡Vaya idea!|Was für eine Idee! / Tolle Idee!
+¡Vaya + sust.! (fam.)|Was für ein/e + S.!
+los Andes|die Anden
+lindo, linda (lat. am.)|schön
+Machu Picchu|Ruinenstadt der Inka
+el/la turista (m./f.)|der Tourist, die Touristin
+el Camino Inca|der Inka-Pfad
+el kilómetro|der Kilometer
+la altura|die Höhe, die Größe
+ayer|gestern
+Nazca|Stadt im Süden von Peru
+la avioneta|das kleine Flugzeug
+las líneas de Nazca|die Nazca-Linien
+el desierto|die Wüste
+la figura|die Figur, die Abbildung
+el animal|das Tier
+el/la indígena (m./f.)|hier: der Nachfahre, die Nachfahrin der präkolumbischen Bevölkerung
+dibujar algo|etw. zeichnen
+nadie|niemand
+el Lago Titicaca|der Titicacasee
+el lago|der See
+el parque nacional|der Nationalpark
+la Amazonia|das Amazonasgebiet`},
+{n:"Texto B",p:88,w:`durante + sust.|während + S.
+el fotógrafo, la fotógrafa|der Fotograf, die Fotografin
+la cámara|die Kamera
+la región andina|die Andenregion
+sacar fotos|Fotos machen
+impresionante|beeindruckend
+inmenso, inmensa|riesig
+unir algo / a alguien|etw./jdn vereinen
+Bolivia|Bolivien
+Berlín|Berlin
+la isla|die Insel
+flotante|schwimmend, schwebend
+la totora|die Binse (Pflanze)
+la planta|die Pflanze
+crecer (c → zc)|wachsen
+los uros|indigenes Volk, am Titicacasee ansässig
+adaptarse a algo/alguien|sich an etw./jdn anpassen
+la hoja de coca|das Kokablatt
+la hoja|das Blatt
+ponerse + adj.|werden (Zustandsveränderung)
+el alimento|das Nahrungsmittel
+el bote|das Boot
+artesanal|kunsthandwerklich
+el turismo|der Tourismus
+la fuente de ingreso|die Einnahmequelle
+el estilo de vida|der Lebensstil
+el estilo|der Stil
+diferente|anders, verschieden
+tradicional|traditionell
+el panel solar|das Solarmodul
+solar (adj.)|Sonnen-, Solar-
+el televisor|der Fernseher
+el japonés|Japanisch (Sprache)
+gracias por|danke für
+contar algo (a alguien) (o → ue)|(jdm) etw. erzählen, zählen
+la palabra|das Wort
+lo contrario (de algo)|das Gegenteil (von etw.)
+el último, la última + sust.|der/die/das letzte + S.
+descubrir|entdecken`}]},
+{n:"Unidad 7",x:[
+{n:"¡Vamos!",p:100,w:`dedicarse (a algo)|sich (beruflich mit etw.) beschäftigen
+el educador, la educadora|der Erzieher, die Erzieherin
+para mí|für mich
+ofrecer algo a alguien|jdm etw. (an)bieten
+la educación|die Bildung, die Ausbildung
+el futuro|die Zukunft
+acabar de + inf.|gerade etw. getan haben
+Matemáticas (pl.) (= Mates fam.)|Mathematik (Schulfach)
+el Bioquímico, la Bioquímica|der Biochemiker, die Biochemikerin
+el laboratorio|das Labor
+el sueño|der Traum, die Müdigkeit
+curar algo / a alguien|etw./jdn heilen
+la enfermedad|die Krankheit
+el paro|die Arbeitslosigkeit
+optimista (inv.)|optimistisch
+deportista (inv.)|sportlich
+me gustaría + inf.|ich würde gerne
+Formación profesional de Educación Física y Deporte|Ausbildung zum Sporttrainer
+además|darüber hinaus
+el contacto|der Kontakt
+la profesión, las profesiones (pl.)|der Beruf
+ideal (inv.)|ideal
+el diseñador web, la diseñadora web|der Webdesigner, die Webdesignerin
+estar seguro, estar segura|sicher sein
+el/la DJ|der DJ, die Djane
+la discusión|die Diskussion
+la ESO (Educación Secundaria Obligatoria)|die Mittelstufe
+la mecánica de coches|die Automechanik
+la mecánica|die Mechanik
+el propio, la propia + sust.|der, die, das eigene + S.
+el jefe, la jefa|der Chef, die Chefin
+la mayoría|die Mehrheit
+sobre todo|vor allem
+el taller|die Werkstatt
+el jardín de infancia|der Kindergarten
+ya que|da, weil`},
+{n:"Texto A",p:103,w:`bienvenido/-a|willkommen
+conmigo|mit mir
+el orientador laboral, la orientadora laboral|der Berufsberater, die Berufsberaterin
+laboral|Arbeits-
+orientar a alguien|hier: jdn beraten
+informar a alguien (sobre algo)|jdn (über etw.) informieren
+la opción|die Option
+el punto fuerte|die Stärke
+fuerte|stark
+el punto débil|die Schwäche
+débil|schwach
+Me resulta fácil/difícil|Es fällt mir leicht/schwer
+Me cuesta + verbo|Es fällt mir schwer, etw. zu tun
+muchos, muchas + sust.|viele
+el único, la única + sust.|der, die, das einzige + S.
+el camino|der Weg
+algunos, algunas|einige
+interesarse (por algo/alguien)|sich (für etw./jdn) interessieren
+el extranjero|das Ausland
+el voluntariado|der Freiwilligendienst
+el idioma|die Sprache
+obligatorio, obligatoria|obligatorisch
+luego|dann, später, nachher
+la FP (formación profesional) Superior|die Berufsausbildung (Fachschule)
+el/la técnico/-a superior en administración y finanzas|der/die Verwaltungsfachangestellte (Titel)
+la facilidad|das Talent, die Begabung
+la parte|der Teil
+la FP Media|die Berufsausbildung (Lehre)
+uno, una|man
+se + 3. Person Sg. oder Pl.|man
+pagar algo|etw. bezahlen
+alguien (inv.)|jemand
+presentarse (a algo)|sich bewerben (auf etw.)
+el puesto|die (Arbeits-)Stelle
+el buen, la buena + sust.|der/die/das gute + S.
+el currículum|der Lebenslauf
+la carta de presentación|das Anschreiben
+pedir (algo) a alguien (e → i)|jdn (um etw.) bitten
+el/la gran + sust.|der/die/das großartige + S.
+la tarea|die Aufgabe, die Arbeit
+contigo|mit dir
+real|wirklich
+fácil|einfach
+el pago|das Gehalt
+el anuncio|die Ausschreibung
+el ingreso|der Eintritt (Firma)
+ser bueno, buena en/con algo|gut sein in/mit etw.
+tener dificultades con/para algo|sich mit/bei etw. schwertun
+la dificultad|die Schwierigkeit`},
+{n:"Texto B",p:106,w:`la vida laboral|das Berufsleben
+hacer la maleta|die Koffer packen
+la maleta|der Koffer
+irse|weggehen
+lidiar con algo/alguien|sich mit jdm/etw. herumärgern müssen
+la costumbre|die Gewohnheit
+el alemán, la alemana|der/die Deutsche
+el español, la española|der Spanier, die Spanierin
+Salamanca|Stadt in Spanien
+la carrera|die Karriere, hier: der Studiengang
+el traductor, la traductora|der Übersetzer, die Übersetzerin
+contratar a alguien|jdn anstellen, einstellen
+llevar + Zeitangabe|seit + Zeitangabe
+trabajar como|als … arbeiten
+el secretario, la secretaria|der Sekretär, die Sekretärin
+sorprender a alguien|jdn überraschen
+la cantidad|die Anzahl, die Menge
+increíble|unglaublich
+el empleo|der Job, die Stelle
+trabajar media jornada|halbtags arbeiten
+el sueldo|das Gehalt
+el impuesto|die Steuer
+el salario|der Lohn
+la diferencia|der Unterschied
+a todos lados|überallhin
+ni uno/-a ni otro/-a|keine/r, keines von beiden
+ni… ni…|weder … noch …
+simplemente (adv.)|einfach
+Alicante|Stadt in Spanien
+por amor|aus Liebe
+el amor|die Liebe
+pronto|bald, gleich
+el bufete de abogados|die Anwaltskanzlei
+meter la pata|ins Fettnäpfchen treten
+tratar a alguien de usted|jdn siezen
+tutearse|sich duzen
+la media mañana|der späte Vormittag
+la pausa|die Pause
+al mediodía|mittags
+en la semana|wochentags
+el horario laboral|die Arbeitszeit
+dejar algo|etw. lassen
+la vida privada|Privatleben
+privado, privada|privat
+la visita|der Besuch
+sorprenderse con|staunen über
+el verano|der Sommer
+hacer calor|heiß sein
+el calor|die Hitze, Wärme
+coordinar algo|etw. koordinieren
+el grado|Grad (Temperatur)
+estimado señor, estimada señora|sehr geehrter Herr, sehr geehrte Frau (Brief)
+dirigirse a alguien|sich an jdn richten
+en espera de sus noticias|in Erwartung Ihrer Nachricht
+la noticia|die Nachricht
+saludar a alguien|jdn (be-)grüßen
+atentamente|mit freundlichen Grüßen (Brief)
+adecuado/-a|passend`}]},
+{n:"Unidad 8",x:[
+{n:"¡Vamos!",p:108,w:`estar situado (en)|liegen (in) + Ort
+el norte|der Norden
+el oeste|der Westen
+el este|der Osten
+el sur|der Süden
+la comunidad autónoma|die autonome Gemeinschaft
+Granada|Stadt in Andalusien
+Málaga|zweitgrößte Stadt Andalusiens
+Cádiz|Stadt in Andalusien
+el monumento|das Denkmal, die Sehenswürdigkeit
+la Alhambra|arabische Festung in Granada
+el gazpacho|spanische kalte Gemüsesuppe
+el flamenco|andalusischer Musikstil und Tanz
+la montaña|der Berg, das Gebirge
+esquiar|Ski fahren
+la Sierra Nevada|höchstes Gebirge Spaniens
+el andaluz, la andaluza, los andaluces (pl.)|der Andalusier, die Andalusierin
+exportar algo|etw. exportieren
+la economía|die Wirtschaft
+la industria|die Industrie
+la planta de energía solar|die Solaranlage
+la fábrica|die Fabrik
+el experto, la experta|der Experte, die Expertin
+¡Felicidades!|Herzlichen Glückwunsch!
+la unidad|die Lektion
+No pasa nada.|Das macht nichts.
+gótico, gótica|gotisch
+el paisaje|die Landschaft
+arriba|oben
+abajo|unten
+adelante|vorne, im Vordergrund
+atrás|hinten, im Hintergrund`},
+{n:"Texto A",p:111,w:`antes (adv.)|vorher, früher
+cerca de|zirka
+cada + sust.|jeder, jede, jedes + S.
+andaluz, andaluza, andaluces (pl.)|andalusisch
+causar algo|etw. verursachen
+el medio ambiente|die Umwelt
+el director, la directora|der Leiter, die Leiterin; der Direktor, die Direktorin
+el pasado|die Vergangenheit
+el/la periodista|der Journalist, die Journalistin
+inmobiliario, inmobiliaria|Immobilien-
+aquel, aquella, aquellos, aquellas + sust.|jener, jene, jenes + S.
+sostenible|nachhaltig
+cuidar algo/a alguien|auf etw./jdn aufpassen
+la situación|die Situation
+por suerte|zum Glück
+en aquel entonces|damals
+la costa|die Küste
+la solución|die Lösung
+el conflicto|der Konflikt
+primero|erstens
+respetar algo/a alguien|etw./jdn respektieren
+intentar algo|etw. versuchen
+ahorrar|sparen
+el agua (f.)|das Wasser
+el campo de golf|der Golfplatz
+cambiar algo|etw. (ver)ändern, etw. wechseln
+la toalla|das Handtuch
+el cliente, la clienta|der Kunde, die Kundin
+estar limpio, estar limpia|sauber sein
+reciclar algo|etw. recyceln
+la basura|der Müll
+la ecología|die Ökologie
+estar de acuerdo con algo|mit etw. einverstanden sein
+en resumen|zusammenfassend
+el olivo|der Olivenbaum`},
+{n:"Texto B",p:114,w:`nevar (e → ie)|schneien
+Hace sol.|Die Sonne scheint.
+Hace frío.|Es ist kalt.
+Hace viento.|Es ist windig.
+Hace 20 grados.|Es sind 20 Grad.
+Hace buen/mal tiempo.|Das Wetter ist gut/schlecht.
+el frío|die Kälte
+el viento|der Wind
+el grado|der Grad
+el tiempo|das Wetter
+la tormenta|der Sturm, das Gewitter
+estar nublado, estar nublada|bewölkt sein
+la reserva|die Reservierung
+confirmar algo|etw. bestätigen
+la sala de conferencias|der Konferenzraum
+en cuanto a|in Bezug auf
+el horario|hier: die Öffnungszeit
+la recepción|die Rezeption
+el precio|der Preis
+la posibilidad|die Möglichkeit
+cenar|Abendbrot essen
+por supuesto|natürlich, selbstverständlich
+tener acceso a algo|Zugang zu etw. haben
+desear algo a alguien|jdm etw. wünschen
+el éxito|der Erfolg
+el congreso|der Kongress
+al principio|am Anfang, anfangs
+el principio|der Anfang
+al final|am Ende, letztendlich
+el final|das Ende
+el día siguiente|der nächste Tag
+siguiente|nächster, nächste; folgend
+el aire acondicionado|die Klimaanlage
+el saludo|der Gruß, hier: Liebe Grüße (Brief)
+¡Hasta pronto!|Bis bald!
+la nieve|der Schnee
+de repente|plötzlich, auf einmal
+el beso|der Kuss, hier: Liebe Grüße (Brief)`}]},
+{n:"Anhang: Die Zahlen",x:[
+{n:"Los números 0–19",w:`cero|0
+uno, un/a|1
+dos|2
+tres|3
+cuatro|4
+cinco|5
+seis|6
+siete|7
+ocho|8
+nueve|9
+diez|10
+once|11
+doce|12
+trece|13
+catorce|14
+quince|15
+dieciséis|16
+diecisiete|17
+dieciocho|18
+diecinueve|19`},
+{n:"Los números 20–100",w:`veinte|20
+veintiuno, veintiún/-una|21
+veintidós|22
+veintitrés|23
+veinticuatro|24
+veinticinco|25
+veintiséis|26
+veintisiete|27
+veintiocho|28
+veintinueve|29
+treinta|30
+treinta y uno, treinta y un/a|31
+treinta y dos|32
+treinta y tres|33
+cuarenta|40
+cincuenta|50
+sesenta|60
+setenta|70
+ochenta|80
+noventa|90
+cien|100`},
+{n:"Los números ab 101",w:`ciento uno, ciento un/a|101
+ciento treinta y cinco|135
+doscientos/-as|200
+trescientos/-as|300
+cuatrocientos/-as|400
+quinientos/-as|500
+seiscientos/-as|600
+setecientos/-as|700
+ochocientos/-as|800
+novecientos/-as|900
+mil|1.000
+dos mil|2.000
+diez mil|10.000
+cien mil|100.000
+doscientos/-as mil|200.000
+quinientos/-as mil|500.000
+un millón (de …)|1.000.000
+dos millones (de …)|2.000.000`}]}
+];
+
+const $=s=>document.querySelector(s),LS="lernapp-v1";
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const nz=s=>s.toLowerCase().replace(/\(.*?\)/g,"").replace(/\/[^\s,]+/g,"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[¡!¿?.,…]/g,"").replace(/\s+/g," ").trim();
+const pt=(a,b)=>b?Math.round(a/b*100):0;
+const bar=(a,b)=>`<div class="bar"><i style="width:${b?a/b*100:0}%"></i></div>`;
+U.forEach((u,ui)=>u.x.forEach((x,ti)=>{x.id=ui+"-"+ti;x.l=x.w.trim().split("\n").map(l=>{const i=l.indexOf("|"),e=l.slice(0,i),d=l.slice(i+1);return{e,d,k:x.id+"~"+e+"~"+d}})}));
+const cnt=(x,d)=>{const r=((S.r||{})[x.id]||{})[d];return r?Math.min(r.ok,x.l.length):0};
+function fixS(){S.k=S.k||{};S.f=S.f||[];S.r=S.r||{};S.w=S.w||{};S.sr=S.sr||{};for(const i in S.r){const r=S.r[i];if(r&&r.ok!=null)S.r[i]={ds:r}}for(const i in S.sr){const r=S.sr[i];if(r&&r.ok!=null)S.sr[i]={ds:r}}}
+const pr=(a,b,t,w)=>`<div class="pr"><span><i>S→D</i> ${a} von ${t}${w?" gelernt":""} · ${pt(a,t)} %</span><span><i>D→S</i> ${b} von ${t}${w?" gelernt":""} · ${pt(b,t)} %</span></div>`;
+const find=id=>{let r;U.forEach(u=>u.x.forEach(x=>{if(x.id==id)r=x}));return r};
+
+// --- HIER DEINE SUPABASE-DATEN & ADMIN-NAMEN EINTRAGEN ---
+const SUPABASE_URL = "https://ypudhcudvkyhjuefzxuh.supabase.co";
+const SUPABASE_KEY = "sb_publishable_yi3JSEaGrxrZfPFiOf5Gag_bpdxPADA";
+const ADMIN_USERS = ["alex"]; // <-- Hier deinen Benutzernamen (kleingeschrieben) eintragen!
+
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const PAL_VARS = [
+  {k:"--bg",  n:"Hintergrund",           d:"#fbfaf7", dk:"#151614"},
+  {k:"--fg",  n:"Textfarbe",             d:"#1f1f1c", dk:"#ecebe6"},
+  {k:"--mu",  n:"Sekundärer Text",       d:"#77766f", dk:"#9d9c94"},
+  {k:"--c",   n:"Karten & Felder",       d:"#ffffff", dk:"#1f201d"},
+  {k:"--bd",  n:"Rahmen & Linien",       d:"#ece9e1", dk:"#2d2e2a"},
+  {k:"--ac",  n:"Akzentfarbe (Buttons)", d:"#2f6f4f", dk:"#6fbf94"},
+  {k:"--ac2", n:"Akzent-Hintergrund",    d:"#eaf3ed", dk:"#223028"},
+  {k:"--on",  n:"Text auf Buttons",      d:"#ffffff", dk:"#10201a"},
+  {k:"--bad", n:"Fehlerfarbe",           d:"#b3402f", dk:"#e6806f"}
+];
+
+const PAL_PRESETS = {
+  light: {"--bg":"#fbfaf7","--fg":"#1f1f1c","--mu":"#77766f","--c":"#ffffff","--bd":"#ece9e1","--ac":"#2f6f4f","--ac2":"#eaf3ed","--on":"#ffffff","--bad":"#b3402f"},
+  dark:  {"--bg":"#151614","--fg":"#ecebe6","--mu":"#9d9c94","--c":"#1f201d","--bd":"#2d2e2a","--ac":"#6fbf94","--ac2":"#223028","--on":"#10201a","--bad":"#e6806f"},
+  ocean: {"--bg":"#f0f6fa","--fg":"#102a43","--mu":"#627d98","--c":"#ffffff","--bd":"#d9e2ec","--ac":"#1976d2","--ac2":"#e3f2fd","--on":"#ffffff","--bad":"#d32f2f"},
+  night: {"--bg":"#0f172a","--fg":"#f8fafc","--mu":"#94a3b8","--c":"#1e293b","--bd":"#334155","--ac":"#38bdf8","--ac2":"#0c4a6e","--on":"#0f172a","--bad":"#f87171"}
+};
+
+let ACCREADY=0,ACC=[],STAB="normal",SET_U="",STAT_U="",NEW_TYPE="perm",G_DUR="60",G_CVAL="2",G_CUNIT="60",NU_VAL="",NP_VAL="";
+const MK="lernapp-mode";
+let S={k:{},f:[],t:0},V={p:"home"},T=null,DC=0,P={m:"k",d:0},tm=null,M=null,LM="",AM="",AE=0,AC="",LU="";
+const lsKey=()=>M&&M.k=="acc"?LS+":u:"+M.u:LS;
+const un=s=>String(s||"").trim().toLowerCase();
+const isAdmin=()=>Boolean(M&&M.k=="acc"&&ADMIN_USERS.map(un).includes(un(M.u)));
+
+const accType=a=>(a&&a.state&&a.state.type)||"perm";
+const isNoSave=a=>{const t=accType(a);return t==="nosave"||t==="guest"};
+const isExpired=a=>accType(a)==="guest"&&Boolean(a&&a.state&&a.state.exp&&Date.now()>=a.state.exp);
+const curAcc=()=>M&&M.k=="acc"?ACC.find(x=>x.u==M.u):null;
+
+function applyPal(){
+  const r=document.documentElement;
+  PAL_VARS.forEach(v=>{
+    if(S&&S.pal&&S.pal[v.k])r.style.setProperty(v.k,S.pal[v.k]);
+    else r.style.removeProperty(v.k);
+  });
+}
+
+function getCol(v){
+  if(S&&S.pal&&S.pal[v.k])return S.pal[v.k];
+  const isDark=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;
+  return isDark?v.dk:v.d;
+}
+
+function liveCol(k,val){document.documentElement.style.setProperty(k,val)}
+
+function saveCol(k,val){
+  S.pal=S.pal||{};
+  PAL_VARS.forEach(v=>{if(!S.pal[v.k])S.pal[v.k]=getCol(v)});
+  S.pal[k]=val;
+  applyPal();
+  save();
+}
+
+function setPreset(name){
+  if(!name){delete S.pal}
+  else if(PAL_PRESETS[name]){S.pal=Object.assign({},PAL_PRESETS[name])}
+  applyPal();
+  save();
+  render();
+}
+
+function fmtRelTime(ts){
+  if(!ts)return "";
+  const diff=Date.now()-ts;
+  if(diff<90000)return "gerade eben";
+  const mins=Math.floor(diff/60000);
+  if(mins<60)return `vor ${mins} Min.`;
+  const d=new Date(ts),now=new Date();
+  const time=d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});
+  if(d.toDateString()===now.toDateString())return `Heute, ${time} Uhr`;
+  const yest=new Date(now);yest.setDate(now.getDate()-1);
+  if(d.toDateString()===yest.toDateString())return `Gestern, ${time} Uhr`;
+  const date=d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",year:"numeric"});
+  return `${date}, ${time} Uhr`;
+}
+
+function fmtExpTime(ts){
+  if(!ts)return "";
+  const diff=ts-Date.now();
+  if(diff<=0)return "abgelaufen";
+  const mins=Math.ceil(diff/60000);
+  if(mins<60)return `in ${mins} Min.`;
+  const d=new Date(ts),now=new Date();
+  const time=d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});
+  if(d.toDateString()===now.toDateString())return `Heute, ${time} Uhr`;
+  const tom=new Date(now);tom.setDate(now.getDate()+1);
+  if(d.toDateString()===tom.toDateString())return `Morgen, ${time} Uhr`;
+  const date=d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",year:"numeric"});
+  return `${date}, ${time} Uhr`;
+}
+
+function fmtLast(a){
+  const st=a&&a.state?a.state:{};
+  const ts=st.last||st.t||0;
+  if(!ts)return "Noch nie online";
+  if(Date.now()-ts<90000)return "🟢 Gerade online";
+  return "Zuletzt online: "+fmtRelTime(ts);
+}
+
+function typeBadge(a){
+  const t=accType(a);
+  if(t==="nosave")return " · Keine Sicherung";
+  if(t==="guest")return ` · Gast (läuft ab: ${fmtExpTime(a.state&&a.state.exp)})`;
+  return "";
+}
+
+function unitTitle(id){
+  const p=String(id||"").split("-");
+  const u=U[p[0]],x=u&&u.x[p[1]];
+  if(u&&x)return `${u.n} – ${x.n}`;
+  const f=find(id);
+  return f?f.n:String(id||"");
+}
+
+function getLastActivity(a){
+  const st=a&&a.state?a.state:{};
+  let best=st.act&&st.act.t?{txt:st.act.txt,t:st.act.t}:null;
+  const rAll=st.r||{};
+  for(const id in rAll){
+    for(const d of ["sd","ds"]){
+      const item=rAll[id]&&rAll[id][d];
+      if(item&&item.d&&(!best||item.d>best.t)){
+        best={txt:`Vokabeltest ${LB[d]||d} · ${unitTitle(id)} (${pt(item.ok,item.n)} %)`,t:item.d};
+      }
+    }
+  }
+  const srAll=st.sr||{};
+  for(const id in srAll){
+    for(const d of ["sd","ds"]){
+      const item=srAll[id]&&srAll[id][d];
+      if(item&&item.d&&(!best||item.d>best.t)){
+        best={txt:`Satztrainer ${LB[d]||d} · ${unitTitle(id)} (${pt(item.ok,item.n)} %)`,t:item.d};
+      }
+    }
+  }
+  return best;
+}
+
+function getUserStats(a){
+  const st=a&&a.state?a.state:{};
+  let vTot=0,vSd=0,vDs=0,sTot=0,sSd=0,sDs=0;
+  const units=[];
+  U.forEach(u=>{
+    let uvTot=0,uvSd=0,uvDs=0;
+    u.x.forEach(x=>{
+      const len=x.l.length;
+      vTot+=len;uvTot+=len;
+      const r=(st.r||{})[x.id]||{};
+      if(r.sd&&r.sd.ok!=null){const ok=Math.min(r.sd.ok,len);vSd+=ok;uvSd+=ok}
+      if(r.ds&&r.ds.ok!=null){const ok=Math.min(r.ds.ok,len);vDs+=ok;uvDs+=ok}
+      const slen=typeof sxl==="function"?sxl(x.id).length:0;
+      if(slen){
+        sTot+=slen;
+        const sr=(st.sr||{})[x.id]||{};
+        if(sr.sd&&sr.sd.ok!=null)sSd+=Math.min(sr.sd.ok,slen);
+        if(sr.ds&&sr.ds.ok!=null)sDs+=Math.min(sr.ds.ok,slen);
+      }
+    });
+    if(uvSd>0||uvDs>0){
+      units.push({n:u.n,sd:pt(uvSd,uvTot),ds:pt(uvDs,uvTot)});
+    }
+  });
+  return{
+    vTot,vSd,vDs,vSdPct:pt(vSd,vTot),vDsPct:pt(vDs,vTot),
+    sTot,sSd,sDs,sSdPct:pt(sSd,sTot),sDsPct:pt(sDs,sTot),
+    units
+  };
+}
+
+function hookActivity(){
+  if(typeof fin==="function"&&!fin._w){
+    const _fin=fin;
+    fin=function(){
+      _fin.apply(this,arguments);
+      if(T&&T.x&&!T.x.v){
+        const mLabel=T.m=="ts"?"Vokabeltest S→D":T.m=="td"?"Vokabeltest D→S":T.m=="k"?"Lernkarten":"Vokabel-Übung";
+        S.act={txt:`${mLabel} · ${unitTitle(T.x.id)} (${pt(T.ok,T.q.length)} %)`,t:Date.now()};
+        save();
+      }
+    };
+    fin._w=1;
+  }
+  if(typeof snxt==="function"&&!snxt._w){
+    const _snxt=snxt;
+    snxt=function(){
+      const wasRunning=Q&&Q.i<Q.q.length;
+      _snxt.apply(this,arguments);
+      if(wasRunning&&Q&&Q.i>=Q.q.length){
+        S.act={txt:`Satztrainer ${LB[Q.z]||""} · ${unitTitle(Q.id)} (${pt(Q.ok,Q.q.length)} %)`,t:Date.now()};
+        save();
+      }
+    };
+    snxt._w=1;
+  }
+}
+
+async function cleanupExpired(list){
+  const arr=Array.isArray(list)?list:ACC;
+  const expList=arr.filter(isExpired);
+  if(!expList.length)return arr;
+  for(const a of expList){
+    sb.from("konten").delete().eq("u",a.u).then(()=>{});
+    try{localStorage.removeItem(LS+":u:"+a.u)}catch(e){}
+  }
+  const valid=arr.filter(a=>!isExpired(a));
+  if(M&&M.k=="acc"&&expList.some(a=>a.u==M.u)){
+    ACC=valid;
+    logout("Dein Gastzugang ist abgelaufen und wurde automatisch gelöscht.");
+  }
+  return valid;
+}
+
+function metaState(a,lastTs,actObj){
+  const st={type:accType(a),last:lastTs};
+  if(accType(a)==="guest"&&a.state&&a.state.exp)st.exp=a.state.exp;
+  if(actObj)st.act=actObj;
+  return st;
+}
+
+async function pingOnline(){
+  if(!M||M.k!="acc")return;
+  const u=M.u;
+  const a=ACC.find(x=>x.u==u);
+  if(a&&isExpired(a)){
+    ACC=await cleanupExpired(ACC);
+    return;
+  }
+  S.last=Date.now();
+  if(a&&isNoSave(a)){
+    const ms=metaState(a,S.last,S.act||null);
+    a.state=ms;
+    try{await sb.from("konten").update({state:ms}).eq("u",u)}catch(e){}
+    return;
+  }
+  try{localStorage.setItem(lsKey(),JSON.stringify(S))}catch(e){}
+  if(a)a.state=S;
+  try{await sb.from("konten").update({state:S}).eq("u",u)}catch(e){}
+}
+
+setInterval(()=>{if(document.visibilityState==="visible")pingOnline()},60000);
+
+function loadS(){
+  S={k:{},f:[],t:0};
+  const a=curAcc();
+  if(a&&isNoSave(a)){
+    applyPal();
+    return;
+  }
+  try{const r=localStorage.getItem(lsKey());if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+  fixS();
+  applyPal();
+}
+
+function restore(){
+  try{
+    const m=localStorage.getItem(MK)||"";
+    if(m.indexOf("acc:")==0){
+      const q=m.split(":"),a=ACC.find(x=>x.u==q[1]&&x.h.slice(0,16)==q[2]);
+      if(a&&!isExpired(a))M={k:"acc",u:a.u};
+      else localStorage.removeItem(MK);
+    }
+  }catch(e){}
+  loadS();
+  if(M&&M.k=="acc")initDb();
+}
+
+async function loadAcc(silent){
+  hookActivity();
+  try{
+    const {data,error}=await sb.from("konten").select("u,s,i,h,state").order("created_at",{ascending:true});
+    if(!error&&Array.isArray(data))ACC=await cleanupExpired(data);
+  }catch(e){}
+  if(!ACCREADY){ACCREADY=1;restore()}
+  if(!silent)render();
+}
+loadS();
+
+function save(){
+  S.t=Date.now();
+  S.last=Date.now();
+  applyPal();
+  clearTimeout(tm);
+  if(M&&M.k=="acc"){
+    const u=M.u;
+    const a=ACC.find(x=>x.u==u);
+    if(a&&isExpired(a)){
+      cleanupExpired(ACC).then(v=>{ACC=v});
+      return;
+    }
+    if(a&&isNoSave(a)){
+      const ms=metaState(a,S.last,S.act||null);
+      a.state=ms;
+      tm=setTimeout(()=>{
+        sb.from("konten").update({state:ms}).eq("u",u).then(()=>{});
+      },600);
+      return;
+    }
+    try{localStorage.setItem(lsKey(),JSON.stringify(S))}catch(e){}
+    if(a)a.state=S;
+    tm=setTimeout(()=>{
+      sb.from("konten").update({state:S}).eq("u",u).then(()=>{});
+    },600);
+  }
+}
+
+async function initDb(){
+  if(!M||M.k!="acc")return;
+  const u=M.u;
+  try{
+    const {data,error}=await sb.from("konten").select("state").eq("u",u).single();
+    if(error||!data||!M||M.u!=u)return;
+    const r=data.state||{};
+    const a=ACC.find(x=>x.u==u);
+    if(a)a.state=r;
+    if(a&&isExpired(a)){
+      ACC=await cleanupExpired(ACC);
+      return;
+    }
+    if(a&&isNoSave(a)){
+      S={k:{},f:[],t:Date.now(),last:Date.now()};
+      applyPal();
+      const ms=metaState(a,S.last,null);
+      a.state=ms;
+      await sb.from("konten").update({state:ms}).eq("u",u);
+      render();
+      return;
+    }
+    if((r.t||0)>S.t){
+      S=Object.assign({k:{},f:[],t:0},r);
+      fixS();
+      applyPal();
+    }
+    S.last=Date.now();
+    try{localStorage.setItem(lsKey(),JSON.stringify(S))}catch(e){}
+    if(a)a.state=S;
+    await sb.from("konten").update({state:S}).eq("u",u);
+    render();
+  }catch(e){}
+}
+
+function setMode(m){
+  M=m;STAB="normal";SET_U="";STAT_U="";
+  try{
+    if(m&&m.k=="acc"){
+      const a=ACC.find(x=>x.u==m.u);
+      localStorage.setItem(MK,"acc:"+a.u+":"+a.h.slice(0,16));
+    }
+  }catch(e){}
+  loadS();T=null;Q=null;V={p:"home"};LM="";AM="";
+  if(m&&m.k=="acc")initDb();
+  render();scrollTo(0,0);
+}
+
+const b64e=u=>btoa(String.fromCharCode(...u)),b64d=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function hashPw(pw,salt,it){
+  const k=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveBits"]);
+  return b64e(new Uint8Array(await crypto.subtle.deriveBits({name:"PBKDF2",salt:b64d(salt),iterations:it,hash:"SHA-256"},k,256)));
+}
+
+async function login(){
+  const u=un($("#lu").value),p=$("#lp").value;LU=u;
+  const a=ACC.find(x=>x.u==u);
+  if(a&&isExpired(a)){
+    ACC=await cleanupExpired(ACC);
+    LM="Dieser Gastzugang ist abgelaufen und wurde gelöscht.";
+    render();return;
+  }
+  let ok=false;
+  if(a&&p){
+    try{ok=(await hashPw(p,a.s,a.i))==a.h}
+    catch(e){LM="Die Anmeldung geht in diesem Browser leider nicht.";render();return}
+  }
+  if(!ok){LM="Benutzername oder Passwort stimmt nicht.";render();return}
+  setMode({k:"acc",u:a.u});
+}
+
+function logout(msg){
+  try{localStorage.removeItem(MK)}catch(e){}
+  M=null;STAB="normal";SET_U="";STAT_U="";loadS();Q=null;T=null;V={p:"home"};LM=msg||"";render();
+}
+
+function genPw(targetId){
+  const c="abcdefghjkmnpqrstuvwxyz23456789";let p="";
+  crypto.getRandomValues(new Uint8Array(10)).forEach(v=>{p+=c[v%c.length]});
+  const el=targetId?$("#"+targetId):($("#np")||$("#gp"));
+  if(el){el.value=p;if(targetId==="np")NP_VAL=p}
+}
+
+function syncNewInputs(){
+  const nu=$("#nu"),np=$("#np"),cv=$("#gcval"),cu=$("#gcunit");
+  if(nu)NU_VAL=nu.value;
+  if(np)NP_VAL=np.value;
+  if(cv)G_CVAL=cv.value;
+  if(cu)G_CUNIT=cu.value;
+}
+
+function setNewType(t){
+  syncNewInputs();
+  NEW_TYPE=t;
+  render();
+}
+
+function setGDur(v){
+  syncNewInputs();
+  G_DUR=v;
+  render();
+}
+
+function calcGuestExp(){
+  let mins=parseInt(G_DUR,10);
+  if(G_DUR==="custom"){
+    const v=Math.max(1,parseInt(($("#gcval")&&$("#gcval").value)||G_CVAL||"1",10));
+    const u=parseInt(($("#gcunit")&&$("#gcunit").value)||G_CUNIT||"60",10);
+    mins=v*u;
+  }
+  if(!mins||mins<1)mins=60;
+  return Date.now()+mins*60000;
+}
+
+async function createAccount(uInput,pInput,autoLogin){
+  if(!autoLogin&&!isAdmin()){AM="Keine Berechtigung.";AE=1;render();return}
+  syncNewInputs();
+  const u=un(uInput),p=pInput;AM="";AE=1;
+  if(!/^[a-z0-9._-]{2,20}$/.test(u))AM="Benutzername: 2 bis 20 Zeichen (Buchstaben, Zahlen, ., -, _).";
+  else if(p.length<6)AM="Das Passwort braucht mindestens 6 Zeichen.";
+  else if(ACC.some(a=>a.u==u))AM="Diesen Benutzernamen gibt es schon.";
+  if(AM){render();return}
+  const s=b64e(crypto.getRandomValues(new Uint8Array(16))),i=150000;let h;
+  try{h=await hashPw(p,s,i)}catch(e){AM="Konto konnte in diesem Browser nicht erstellt werden.";render();return}
+  const t=autoLogin?"perm":NEW_TYPE;
+  const initSt=t==="perm"
+    ?{k:{},f:[],t:Date.now(),last:autoLogin?Date.now():0,type:"perm"}
+    :{type:t,last:0,...(t==="guest"?{exp:calcGuestExp()}:{})};
+  AM="Wird in Supabase gespeichert …";AE=0;render();
+  const {error}=await sb.from("konten").insert({u,s,i,h,state:initSt});
+  if(error){AM="Fehler beim Speichern: "+error.message;AE=1;render();return}
+  ACC.push({u,s,i,h,state:initSt});
+  NU_VAL="";NP_VAL="";
+  AM=t==="guest"
+    ?`Gastzugang „${u}“ angelegt (gültig bis ${fmtExpTime(initSt.exp)}).`
+    :t==="nosave"
+      ?`Konto „${u}“ (ohne Speicherung) wurde angelegt.`
+      :`Konto „${u}“ wurde angelegt.`;
+  AE=0;
+  if(autoLogin)setMode({k:"acc",u});
+  else render();
+}
+
+function addAcc(){createAccount($("#nu").value,$("#np").value,false)}
+function genAcc(){createAccount($("#gu").value,$("#gp").value,true)}
+
+function toggleAccSet(u){
+  SET_U=(SET_U===u)?"":u;
+  AC="";AM="";render();
+}
+
+function toggleAccStat(u){
+  STAT_U=(STAT_U===u)?"":u;
+  render();
+}
+
+async function changePw(u){
+  if(!isAdmin())return;
+  const el=$("#epw");
+  const p=el?el.value:"";
+  if(p.length<6){AM="Das neue Passwort braucht mindestens 6 Zeichen.";AE=1;render();return}
+  const s=b64e(crypto.getRandomValues(new Uint8Array(16))),i=150000;let h;
+  try{h=await hashPw(p,s,i)}catch(e){AM="Fehler beim Verschlüsseln.";AE=1;render();return}
+  AM="Passwort wird gespeichert …";AE=0;render();
+  const {error}=await sb.from("konten").update({s,i,h}).eq("u",u);
+  if(error){AM="Fehler beim Ändern: "+error.message;AE=1;render();return}
+  const a=ACC.find(x=>x.u==u);
+  if(a){a.s=s;a.i=i;a.h=h}
+  if(M&&M.u==u){
+    try{localStorage.setItem(MK,"acc:"+u+":"+h.slice(0,16))}catch(e){}
+  }
+  SET_U="";
+  AM="Passwort für „"+u+"“ wurde erfolgreich geändert.";AE=0;
+  render();
+}
+
+async function delAcc(u){
+  if(!isAdmin())return;
+  if(AC!=u){AC=u;render();return}
+  AC="";AM="Wird gelöscht …";AE=0;render();
+  const {error}=await sb.from("konten").delete().eq("u",u);
+  if(error){AM="Fehler beim Löschen: "+error.message;AE=1;render();return}
+  ACC=ACC.filter(a=>a.u!=u);
+  SET_U="";STAT_U="";
+  AM="Konto „"+u+"“ gelöscht.";AE=0;
+  if(M&&M.u==u)logout();else render();
+}
+
+const note=()=>AM?`<p class="${AE?"bad":"ok"}">${esc(AM)}</p>`:"";
+const lf=()=>`<div class="login"><input id="lu" value="${esc(LU)}" placeholder="Benutzername" autocomplete="username" autocapitalize="off" autocorrect="off"><input id="lp" type="password" placeholder="Passwort" autocomplete="current-password" onkeydown="if(event.key=='Enter')login()"><button class="btn" onclick="login()">Anmelden</button>${LM?`<p class="bad">${esc(LM)}</p>`:""}</div>`;
+
+function gate(){
+  if(!ACCREADY)return `<h1>Lern-App</h1><p class="sub">Wird geladen …</p>`;
+  return `<h1>Lern-App</h1><p class="sub">Bitte melde dich mit Benutzername und Passwort an.</p>${lf()}${ACC.length?"":`<h2>Erstes Konto anlegen</h2><p class="sub">Noch keine Konten in Supabase vorhanden. Lege jetzt das erste Konto an:</p><div class="login"><input id="gu" placeholder="Neuer Benutzername" autocapitalize="off" autocorrect="off"><input id="gp" type="text" placeholder="Passwort (mind. 6 Zeichen)" autocapitalize="off" autocorrect="off"><button class="lnk" onclick="genPw('gp')">Passwort erzeugen</button><button class="btn" onclick="genAcc()">Konto direkt anlegen</button></div>${note()}`}`;
+}
+
+function setTab(t){
+  STAB=t;AM="";LM="";SET_U="";AC="";
+  if(t==="admin")loadAcc();
+  else render();
+}
+
+function set(){
+  const me=curAcc(),noSave=me&&isNoSave(me),tMe=me?accType(me):"perm";
+  let h=`<h1>Einstellungen</h1>
+  <div class="seg" style="margin:8px 0 14px">
+    <button class="${STAB=="normal"?"on":""}" onclick="setTab('normal')">Normal</button>
+    <button class="${STAB=="admin"?"on":""}" onclick="setTab('admin')">Administration</button>
+  </div>`;
+
+  if(STAB=="admin"){
+    if(!isAdmin()){
+      h+=`<h2>Administration</h2><div class="card"><b>Kein Zugriff</b><span>Dieser Bereich ist nur für (${esc(ADMIN_USERS.join(", "))}) freigeschaltet.</span></div>`;
+      return h;
+    }
+    h+=`<div style="display:flex;justify-content:space-between;align-items:baseline"><h2>Konten verwalten</h2><button class="lnk" style="font-size:.85em;padding:0" onclick="loadAcc()">↻ Aktualisieren</button></div>`;
+    h+=ACC.length?ACC.map(a=>{
+      const stOpen=STAT_U===a.u,cfgOpen=SET_U===a.u,ns=isNoSave(a);
+      const stats=stOpen&&!ns?getUserStats(a):null;
+      const lastAct=stOpen?getLastActivity(a):null;
+      return `
+      <div class="card" style="padding:11px 14px;margin:8px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+          <div onclick="toggleAccStat('${a.u}')" style="cursor:pointer;flex:1;min-width:0">
+            <b style="font-size:1.05em">${esc(a.u)}</b>
+            <small style="display:block;color:var(--mu);margin-top:2px">${esc(fmtLast(a)+typeBadge(a))}</small>
+          </div>
+          <div style="display:flex;gap:6px;flex:none">
+            <button class="btn2 sm" title="Fortschritt & Aktivität" onclick="toggleAccStat('${a.u}')">${stOpen?"▾":"▸"}</button>
+            <button class="btn2 sm" title="Konto-Einstellungen" onclick="toggleAccSet('${a.u}')">⚙️</button>
+          </div>
+        </div>
+
+        ${stOpen?`
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--bd);font-size:.9em">
+          <div style="margin-bottom:${ns?0:8}px">
+            <small style="color:var(--mu);text-transform:uppercase;letter-spacing:.05em;font-size:.76em;font-weight:600">Zuletzt gemacht</small>
+            <div style="margin-top:2px">${lastAct?`<b>${esc(lastAct.txt)}</b> <small style="color:var(--mu)">(${esc(fmtRelTime(lastAct.t))})</small>`:`<span style="color:var(--mu)">Noch keine Übung abgeschlossen</span>`}</div>
+          </div>
+
+          ${ns?`<p class="sub" style="margin:6px 0 0;font-size:.86em">Für diesen Konto-Typ (${accType(a)==="guest"?"Gastzugang":"Keine Sicherung"}) werden kein Fortschritt und keine Farben gespeichert.</p>`:`
+          <small style="color:var(--mu);text-transform:uppercase;letter-spacing:.05em;font-size:.76em;font-weight:600">Vokabeltrainer (${stats.vTot} Vokabeln)</small>
+          <div style="margin:3px 0 8px">
+            <div>S→D: <b>${stats.vSdPct} %</b> <small style="color:var(--mu)">(${stats.vSd}/${stats.vTot})</small></div>
+            ${bar(stats.vSd,stats.vTot)}
+            <div>D→S: <b>${stats.vDsPct} %</b> <small style="color:var(--mu)">(${stats.vDs}/${stats.vTot})</small></div>
+            ${bar(stats.vDs,stats.vTot)}
+          </div>
+
+          ${stats.sTot?`
+          <small style="color:var(--mu);text-transform:uppercase;letter-spacing:.05em;font-size:.76em;font-weight:600">Satzschreibtrainer (${stats.sTot} Sätze)</small>
+          <div style="margin:3px 0 6px">
+            <div>S→D: <b>${stats.sSdPct} %</b> <small style="color:var(--mu)">(${stats.sSd}/${stats.sTot})</small> · D→S: <b>${stats.sDsPct} %</b> <small style="color:var(--mu)">(${stats.sDs}/${stats.sTot})</small></div>
+          </div>`:""}
+
+          ${stats.units.length?`
+          <small style="color:var(--mu);text-transform:uppercase;letter-spacing:.05em;font-size:.76em;font-weight:600">Nach Unidad</small>
+          <div style="margin-top:3px;color:var(--mu);font-size:.86em">
+            ${stats.units.map(u=>`<div><b style="color:var(--fg);font-weight:600">${esc(u.n)}:</b> S→D ${u.sd} % · D→S ${u.ds} %</div>`).join("")}
+          </div>`:""}`}
+        </div>`:""}
+
+        ${cfgOpen?`
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--bd)">
+          <small style="display:block;color:var(--mu);margin-bottom:6px;font-weight:600">Passwort ändern</small>
+          <div class="row" style="margin:0 0 6px 0">
+            <input id="epw" type="text" placeholder="Neues Passwort (mind. 6 Zeichen)" autocapitalize="off" autocorrect="off" onkeydown="if(event.key=='Enter')changePw('${a.u}')">
+            <button class="btn sm" style="flex:none;min-height:40px" onclick="changePw('${a.u}')">Speichern</button>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+            <button class="lnk" style="padding:0;font-size:.85em" onclick="genPw('epw')">Passwort würfeln</button>
+            <button class="btn2 sm" style="border-color:var(--bad);color:var(--bad)" onclick="delAcc('${a.u}')">${AC==a.u?"Wirklich löschen?":"Konto löschen"}</button>
+          </div>
+        </div>`:""}
+      </div>`;
+    }).join("") : `<p class="sub">Noch keine Konten.</p>`;
+
+    h+=`<h2>Neues Konto anlegen</h2>
+    <div class="seg" style="margin:6px 0 8px">
+      <button type="button" class="${NEW_TYPE=="perm"?"on":""}" onclick="setNewType('perm')">Permanent</button>
+      <button type="button" style="margin-left:-1px" class="${NEW_TYPE=="nosave"?"on":""}" onclick="setNewType('nosave')">Keine Sicherung</button>
+      <button type="button" style="margin-left:-1px" class="${NEW_TYPE=="guest"?"on":""}" onclick="setNewType('guest')">Gast</button>
+    </div>
+    <p class="sub" style="margin-top:0">
+      ${NEW_TYPE=="perm"?"Speichert Lernfortschritt und Farbpalette dauerhaft in Supabase."
+       :NEW_TYPE=="nosave"?"Dauerhaftes Konto ohne Speicherung von Fortschritt oder Farben."
+       :"Temporärer Zugang ohne Speicherung – wird nach Ablauf automatisch gelöscht."}
+    </p>
+    ${NEW_TYPE=="guest"?`
+    <div style="margin:6px 0 10px">
+      <small style="display:block;color:var(--mu);margin-bottom:4px;font-weight:600">Gültigkeitsdauer des Gastzugangs</small>
+      <select id="gdur" onchange="setGDur(this.value)" style="width:100%;box-sizing:border-box;font:inherit;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--c);color:var(--fg)">
+        <option value="15" ${G_DUR=="15"?"selected":""}>15 Minuten</option>
+        <option value="60" ${G_DUR=="60"?"selected":""}>1 Stunde</option>
+        <option value="180" ${G_DUR=="180"?"selected":""}>3 Stunden</option>
+        <option value="1440" ${G_DUR=="1440"?"selected":""}>24 Stunden (1 Tag)</option>
+        <option value="4320" ${G_DUR=="4320"?"selected":""}>3 Tage</option>
+        <option value="10080" ${G_DUR=="10080"?"selected":""}>7 Tage</option>
+        <option value="custom" ${G_DUR=="custom"?"selected":""}>Eigene Zeit festlegen …</option>
+      </select>
+      ${G_DUR=="custom"?`
+      <div class="row" style="margin:8px 0 0">
+        <input id="gcval" type="number" min="1" value="${esc(G_CVAL)}" oninput="G_CVAL=this.value" placeholder="Anzahl">
+        <select id="gcunit" onchange="G_CUNIT=this.value" style="flex:1;box-sizing:border-box;font:inherit;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--c);color:var(--fg)">
+          <option value="1" ${G_CUNIT=="1"?"selected":""}>Minuten</option>
+          <option value="60" ${G_CUNIT=="60"?"selected":""}>Stunden</option>
+          <option value="1440" ${G_CUNIT=="1440"?"selected":""}>Tage</option>
+        </select>
+      </div>`:""}
+    </div>`:""}
+    <div class="login" style="margin-top:6px">
+      <input id="nu" value="${esc(NU_VAL)}" oninput="NU_VAL=this.value" placeholder="Neuer Benutzername" autocapitalize="off" autocorrect="off">
+      <input id="np" type="text" value="${esc(NP_VAL)}" oninput="NP_VAL=this.value" placeholder="Passwort (mind. 6 Zeichen)" autocapitalize="off" autocorrect="off">
+      <button class="lnk" onclick="genPw('np')">Passwort erzeugen</button>
+      <button class="btn" onclick="addAcc()">Konto anlegen</button>
+    </div>
+    <p class="sub">Neue Konten landen sofort in Supabase. Gespeichert wird nur ein Hash, nicht das Passwort.</p>${note()}`;
+    h+=`<h2>Sicherung</h2><p class="sub">Kopiere diesen Text als Sicherung deines Fortschritts. Zum Wiederherstellen fügst du ihn hier ein und tippst auf Einspielen.</p><textarea id="bk" rows="5">${esc(JSON.stringify(S))}</textarea><button class="btn" onclick="imp()">Einspielen</button>`;
+    return h;
+  }
+
+  h+=`<h2>Anmeldung</h2><div class="card"><b>Konto „${esc(M.u)}“</b><span>${
+    tMe==="guest"?"Gastzugang (läuft ab: "+fmtExpTime(me.state&&me.state.exp)+") · Keine Speicherung"
+    :noSave?"Keine Speicherung von Fortschritt & Farben"
+    :"Fortschritt & Farben werden automatisch mit Supabase synchronisiert"
+  }</span></div>`;
+  h+=`<button class="btn2" onclick="logout()">Abmelden</button>`;
+  h+=`<h2>Anderes Konto</h2>${lf()}`;
+
+  h+=`<h2>Farbpalette</h2>
+  <p class="sub">${noSave?"Hinweis: Bei diesem Konto werden Farbänderungen nur temporär angezeigt und nicht gespeichert.":"Wähle eine Vorlage oder passe jede Farbe einzeln an."}</p>
+  <div style="margin-bottom:10px">
+    <button class="btn2 sm" style="margin:0 6px 6px 0" onclick="setPreset('')">System-Standard</button>
+    <button class="btn2 sm" style="margin:0 6px 6px 0" onclick="setPreset('light')">Hell</button>
+    <button class="btn2 sm" style="margin:0 6px 6px 0" onclick="setPreset('dark')">Dunkel</button>
+    <button class="btn2 sm" style="margin:0 6px 6px 0" onclick="setPreset('ocean')">Ozean</button>
+    <button class="btn2 sm" style="margin:0 6px 6px 0" onclick="setPreset('night')">Mitternacht</button>
+  </div>`+
+  PAL_VARS.map(v=>{
+    const c=getCol(v);
+    return `<div class="wv"><div><b>${esc(v.n)}</b><small>${esc(v.k)}</small></div><input type="color" value="${esc(c)}" oninput="liveCol('${v.k}',this.value)" onchange="saveCol('${v.k}',this.value)" style="width:48px;height:36px;padding:2px;cursor:pointer;flex:none"></div>`;
+  }).join("");
+
+  return h;
+}
+function tabs(){const t=$("#tb");if(!t||!t.style)return;
+ const run=(V.p=="tr"&&T&&T.s==1)||(V.p=="sx"&&Q&&Q.i<Q.q.length);
+ if(!M||run){t.style.display="none";t.innerHTML="";return}
+ t.style.display="flex";
+ t.innerHTML=`<button class="${V.p=="set"?"":"on"}" onclick="go('home')">Fächer</button><button class="${V.p=="set"?"on":""}" onclick="go('set')">Einstellungen</button>`}
+
+function go(p,a){V={p,a};T=null;DC=0;render();scrollTo(0,0)}
+function render(){const m=$("#app");
+ m.innerHTML=!M?gate():V.p=="home"?home():V.p=="set"?set():V.p=="sp"?sp():V.p=="ss"?ss():V.p=="sx"?sx():V.p=="es"?es():V.p=="fach"?fach(V.a):trainer();
+ tabs();const i=$("#in");if(i)i.focus()}
+
+function home(){
+ return `<h1>Lern-App</h1><p class="sub">Deine Fächer</p>
+<button class="item" onclick="go('sp')"><b>Spanisch</b></button>`}
+function sp(){let t=0,a=0,b=0;U.forEach(u=>u.x.forEach(x=>{t+=x.l.length;a+=cnt(x,"sd");b+=cnt(x,"ds")}));
+ return `<button class="back" onclick="go('home')">‹ Fächer</button><h1>Spanisch</h1>
+<div style="margin-top:12px"><button class="item" onclick="go('es')"><div><b>Vokabeltrainer</b><span class="m">Vokabeln nach Unidad und Texto</span>${pr(a,b,t,1)}</div></button><button class="item" onclick="go('ss')"><div><b>Satzschreibtrainer</b><span class="m">Sätze nach Unidad und Texto</span></div></button></div>`}
+function addF(){const n=$("#nf").value.trim();if(n){S.f.push({n,x:""});save();render()}}
+function imp(){try{const r=JSON.parse($("#bk").value);if(!r||!r.k)throw 0;S=Object.assign({k:{},f:[]},r);fixS();save();render()}catch(e){$("#bk").value="Ungültige Sicherung"}}
+
+function es(){return `<button class="back" onclick="go('sp')">‹ Spanisch</button><h1>Spanisch Vokabeltrainer</h1><p class="sub">S→D = Spanisch → Deutsch, D→S = Deutsch → Spanisch. Gelernt heißt: im Test richtig.</p>`+U.map((u,ui)=>{let t=0,a=0,b=0;u.x.forEach(x=>{t+=x.l.length;a+=cnt(x,"sd");b+=cnt(x,"ds")});const w=wU(u).length;
+ return `<section class="unit"><h2>${esc(u.n)}</h2>${pr(a,b,t)}${w?`<button class="btn2 sm" style="margin-top:8px" onclick="opnW('u',${ui})">Schwerpunkte der Unidad lernen (${w})</button>`:""}<div style="margin-top:6px">`+u.x.map(x=>`<button class="item" onclick="opn('${x.id}')"><div><b>${esc(x.n)}</b>${pr(cnt(x,"sd"),cnt(x,"ds"),x.l.length)}</div></button>`).join("")+`</div></section>`}).join("")}
+
+function fach(i){const f=S.f[i];return `<button class="back" onclick="go('home')">‹ Fächer</button><h1>${esc(f.n)}</h1><p class="sub">Notizen werden automatisch gespeichert.</p><textarea rows="14" oninput="S.f[${i}].x=this.value;save()">${esc(f.x||"")}</textarea><button class="lnk" onclick="delF(${i})">${DC?"Wirklich löschen":"Fach löschen"}</button>`}
+function delF(i){if(!DC){DC=1;render();return}S.f.splice(i,1);save();go("home")}
+
+const sh=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const ALL=U.flatMap(u=>u.x.flatMap(x=>x.l));
+const isT=()=>T.m=="ts"||T.m=="td",tk=()=>T.m=="ts"?"sd":"ds";
+const rr=(id,d)=>((S.r||{})[id]||{})[d];
+
+function opn(id){T={x:find(id),s:0,cf:0};V={p:"tr"};render()}
+function setD(d){P.d=d;render()}
+function stop(){T.s=0;T.cf=0;render()}
+function mc(w,x,d){const key=d?"e":"d",cor=w[key],o=[];
+ const add=v=>{if(o.length<3&&v!==w&&nz(v[key])!=nz(cor)&&!o.some(y=>nz(y)==nz(v[key])))o.push(v[key])};
+ sh(x.l.slice()).forEach(add);if(o.length<3)sh(ALL.slice()).forEach(add);
+ return{w,t:"c",d,o:sh(o.concat(cor)),c:cor}}
+const GW=new Set("der die das den dem des ein eine einen einem einer eines etw jdn jdm jds sich".split(" "));
+const gn=s=>{const w=s.toLowerCase().replace(/ß/g,"ss").normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+ .replace(/\b(hier|auch)\s*:/g," ").replace(/\blat\.\s*am\.?:?/g," ")
+ .replace(/\+\s*(s\.|inf\.|ort|zahl|zeitangabe|adj\.\/adv\.|adj\.|adv\.|verb)/g," ")
+ .replace(/[-–]/g,"").replace(/[^a-z0-9@ ]/g," ").split(/\s+/).filter(Boolean),k=w.filter(v=>!GW.has(v));return(k.length?k:w).join(" ")};
+const gx=p=>{const m=p.match(/\S+\/\S+/);if(!m)return[p];let o=m[0].split("/");if(o.length==2&&o[1].length==1)o=[o[0],o[0]+o[1]];return o.flatMap(v=>gx(p.replace(m[0],v)))};
+const SEP=/[,;]|\s\/\s/;
+function gAlts(d){const o=new Set();
+ for(const v of [d.replace(/\([^)]*\)/g," "),d.replace(/[()]/g,"")]){
+  v.split(SEP).flatMap(gx).forEach(p=>o.add(gn(p)));
+  gx(v.replace(new RegExp(SEP.source,"g")," ")).forEach(p=>o.add(gn(p)))}
+ o.delete("");return[...o]}
+function gk(t,A){const f=gx(t.replace(new RegExp(SEP.source,"g")," ")).map(gn).filter(Boolean);
+ if(f.length&&f.every(v=>A.includes(v)))return true;
+ const P=t.split(SEP).flatMap(gx).map(gn).filter(Boolean);
+ return P.length>0&&P.every(p=>A.includes(p))}
+function gok(t,d){const A=gAlts(d);return[t.replace(/\([^)]*\)/g," "),t.replace(/[()]/g,"")].some(v=>gk(v,A))}
+
+function mk(w,x){const m=T.m;
+ if(m=="k")return{w};
+ if(m=="ts")return{w,t:"g"};
+ if(m=="td")return{w,t:"w"};
+ return Math.random()<.5?{w,t:"w"}:mc(w,x,Math.random()<.5?0:1)}
+function begin(m){T.m=m;T.q=sh(T.x.l.slice()).map(w=>mk(w,T.x));T.i=0;T.f=0;T.r=null;T.ok=0;T.wr=[];T.s=1;T.cf=0;render();scrollTo(0,0)}
+function rec(ok,a){const q=T.q[T.i];if(ok)T.ok++;else{T.wr.push({w:q.w,a});if(isT()){addW(T.x.id,q.w.e,q.w.d,"t");save()}}}
+function fin(){T.s=2;if(isT()){S.r=S.r||{};const id=T.x.id;S.r[id]=S.r[id]||{};S.r[id][tk()]={ok:T.ok,n:T.q.length,d:Date.now()};save()}}
+function nxt(){T.i++;T.f=0;T.r=null;if(T.i>=T.q.length)fin();render()}
+function ans(ok){rec(ok,"");nxt()}
+function pick(i){if(T.r!=null)return;const q=T.q[T.i];T.r=i;rec(q.o[i]==q.c,q.o[i]);if(isT())nxt();else render()}
+function chk(){const q=T.q[T.i],v=$("#in").value,L=T.x.l;
+ const ok=q.t=="g"?L.filter(y=>y.e==q.w.e).some(y=>gok(v,y.d)):L.filter(y=>y.d==q.w.d).some(y=>nz(v)==nz(y.e));rec(ok,v);if(isT())nxt();else{T.r=ok?1:0;render()}}
+function rst(k){if(T.cf!=k){T.cf=k;render();return}const r=S.r&&S.r[T.x.id];if(r)delete r[k];T.cf=0;save();render()}
+
+const wl=id=>(S.w&&S.w[id])||[];
+function addW(id,e,d,s){S.w=S.w||{};const a=S.w[id]=S.w[id]||[],k=nz(e)+"|"+nz(d),f=a.find(v=>nz(v.e)+"|"+nz(v.d)==k);
+ if(f){if(s=="t")f.n=(f.n||0)+1}else a.push({e,d,s,n:s=="t"?1:0})}
+function addMan(){T.wm="";const e0=$("#we").value.trim();let d=$("#wd").value.trim();if(!e0)return;
+ const m=T.x.l.find(v=>nz(v.e)==nz(e0));let e=e0;if(!d&&m){d=m.d;e=m.e}
+ if(!d){T.wm="Bitte auch die deutsche Übersetzung eintragen.";render();return}
+ addW(T.x.id,e,d,"m");save();render()}
+function delW(i){const a=wl(T.x.id);if(i>=0&&i<a.length){a.splice(i,1);save()}render()}
+const wU=u=>{const s=new Set();return u.x.flatMap(x=>wl(x.id)).filter(v=>{const q=v.e+"~"+v.d;return s.has(q)?false:(s.add(q),true)})};
+function opnW(k,a){let l,n,bk=null;
+ if(k=="t"){const x=find(a);l=wl(a);n=x.n;bk=a}else{const u=U[a];l=wU(u);n=u.n}
+ l=l.map(v=>({e:v.e,d:v.d,k:"w~"+v.e+"~"+v.d}));if(!l.length)return;
+ T={x:{id:"w"+k+a,n:n+" · Fehlerschwerpunkte",l,v:1,bk},s:0,cf:0};V={p:"tr"};render();scrollTo(0,0)}
+function wmenu(){const x=T.x,n=x.l.length;
+ return `<button class="back" onclick="${x.bk?"opn('"+x.bk+"')":"go('es')"}">‹ ${x.bk?esc(find(x.bk).n):"Vokabeltrainer"}</button><h1>${esc(x.n)}</h1><p class="sub">${n} Vokabeln · zählt nicht für den Fortschritt</p>
+<div style="margin-top:14px">
+<button class="item" onclick="begin('k')"><div><b>Üben</b><span class="m">Lernkarten</span></div></button>
+<button class="item" onclick="begin('m')"><div><b>Üben</b><span class="m">Multiple Choice und Selberschreiben gemischt</span></div></button></div>
+<p class="sub sp">Richtung der Lernkarten</p>${dirs()}`}
+
+function wsec(){const a=wl(T.x.id).map((v,i)=>({v,i})).sort((p,q)=>(q.v.n||0)-(p.v.n||0)||p.i-q.i);
+ return `<h2>Fehlerschwerpunkte${a.length?" ("+a.length+")":""}</h2>
+${a.length?`<button class="btn" onclick="opnW('t','${T.x.id}')">Schwerpunkte lernen (${a.length})</button>`:""}
+<div class="row" style="margin-top:10px"><input id="we" placeholder="Spanisch" autocomplete="off" autocapitalize="off" onkeydown="if(event.key=='Enter')addMan()"><input id="wd" placeholder="Deutsch" autocomplete="off" onkeydown="if(event.key=='Enter')addMan()"></div>
+<button class="btn2" onclick="addMan()" style="margin-top:0">Vokabel hinzufügen</button>${T.wm?`<p class="bad">${esc(T.wm)}</p>`:""}
+${a.length?a.map(({v,i})=>`<div class="wv"><div><b>${esc(v.e)}</b><span>${esc(v.d)}</span><small>${v.n?v.n+"× falsch im Test":"selbst eingetragen"}${v.n&&v.s=="m"?" · selbst eingetragen":""}</small></div><button class="btn2 sm" onclick="delW(${i})">Löschen</button></div>`).join(""):`<p class="sub">Noch nichts drin. Was du im Test falsch hast, landet hier automatisch.</p>`}`}
+
+const dirs=()=>`<div class="seg"><button class="${P.d?"":"on"}" onclick="setD(0)">S → D</button><button class="${P.d?"on":""}" onclick="setD(1)">D → S</button></div>`;
+const LB={sd:"S→D",ds:"D→S"};
+
+function trainer(){const x=T.x,u=U[x.id.split("-")[0]];
+ if(T.s==1)return run();
+ if(T.s==2)return done();
+ if(x.v)return wmenu();
+ const n=x.l.length,info=(d,t)=>{const r=rr(x.id,d);return t+(r?" · Letztes Ergebnis "+pt(r.ok,r.n)+" %":" · alle "+n+" Vokabeln")};
+ return `<button class="back" onclick="go('es')">‹ ${esc(u.n)}</button><h1>${esc(x.n)}</h1>${pr(cnt(x,"sd"),cnt(x,"ds"),n,1)}
+<div style="margin-top:14px">
+<button class="item" onclick="begin('k')"><div><b>Üben</b><span class="m">Lernkarten</span></div></button>
+<button class="item" onclick="begin('m')"><div><b>Üben</b><span class="m">Multiple Choice und Selberschreiben gemischt</span></div></button>
+<button class="item" onclick="begin('ts')"><div><b>Test S→D</b><span class="m">${info("sd","Spanisch → Deutsch · Selberschreiben")}</span></div></button>
+<button class="item" onclick="begin('td')"><div><b>Test D→S</b><span class="m">${info("ds","Deutsch → Spanisch · Selberschreiben")}</span></div></button></div>
+<p class="sub sp">Richtung der Lernkarten</p>${dirs()}
+<div class="lnks">${["sd","ds"].filter(d=>rr(x.id,d)).map(d=>`<button class="lnk" onclick="rst('${d}')">${T.cf==d?"Wirklich zurücksetzen":"Ergebnis "+LB[d]+" zurücksetzen"}</button>`).join("")}</div>
+${wsec()}`}
+
+function run(){const q=T.q[T.i],w=q.w;
+ let h=`<p class="sub">${esc(T.x.n)}${isT()?" · Test "+LB[tk()]:""} · Frage ${T.i+1} von ${T.q.length}</p>${bar(T.i,T.q.length)}`;
+ if(T.m=="k"){const a=P.d?w.d:w.e,b=P.d?w.e:w.d;
+  h+=`<button class="flash" onclick="T.f=1;render()"><b>${esc(a)}</b>${T.f?`<hr><span>${esc(b)}</span>`:`<small>Tippen zum Umdrehen</small>`}</button>`;
+  if(T.f)h+=`<div class="row"><button class="btn2" onclick="ans(0)">Noch nicht</button><button class="btn" onclick="ans(1)">Gewusst</button></div>`}
+ else if(q.t=="c"){
+  h+=`<div class="flash"><b>${esc(q.d?w.d:w.e)}</b><small>Wähle die richtige Übersetzung</small></div>`+q.o.map((o,i)=>`<button class="opt ${T.r==null?"":o==q.c?"good":i==T.r?"wrong":""}" onclick="pick(${i})">${esc(o)}</button>`).join("");
+  if(T.r!=null)h+=`<button class="btn" onclick="nxt()">Weiter</button>`}
+ else{
+  const g=q.t=="g";h+=`<div class="flash"><b>${esc(g?w.e:w.d)}</b><small>Wie heißt das auf ${g?"Deutsch":"Spanisch"}?</small></div>`;
+  h+=T.r==null?`<div class="row"><input id="in" autocomplete="off" autocapitalize="off" onkeydown="if(event.key=='Enter')chk()"><button class="btn" onclick="chk()">Prüfen</button></div>`
+   :`<p class="${T.r?"ok":"bad"}">${T.r?"Richtig":"Nicht ganz"}: ${esc(g?w.d:w.e)}</p><button class="btn" onclick="nxt()">Weiter</button>`}
+ return h+`<button class="btn2" onclick="stop()">Abbrechen</button>`}
+
+function done(){const t=T.q.length,m=T.m,tt=isT();
+ let h=`<h1>${esc(T.x.n)}</h1>${tt?`<p class="sub">Test ${LB[tk()]}</p>`:""}<div class="card"><b>${pt(T.ok,t)} %</b><span>${T.ok} von ${t} ${m=="k"?"gewusst":"richtig"}${tt?" · zählt jetzt für deinen Fortschritt":""}</span></div>`;
+ if(T.wr.length)h+=`<h2>${tt?"Das hat noch gefehlt":"Nochmal anschauen"}</h2>`+T.wr.map(v=>`<div class="miss"><b>${esc(v.w.e)}</b><span>${esc(v.w.d)}</span>${v.a?`<small>Deine Antwort: ${esc(v.a)}</small>`:""}</div>`).join("");
+ if(tt&&T.wr.length)h+=`<p class="sub">Die falschen Vokabeln stehen jetzt bei den Fehlerschwerpunkten dieses Textos.</p>`;
+ return h+`<button class="btn" onclick="begin('${m}')">${tt?"Test wiederholen":"Nochmal üben"}</button><button class="btn2" onclick="stop()">Zurück</button>`}
+const SX={
+"0-0":`Hola, me llamo Marta.|Hallo, ich heiße Marta.
+Soy de Sevilla.|Ich komme aus Sevilla.
+Soy Manuel.|Ich bin Manuel.
+Hablo español.|Ich spreche Spanisch.
+–Soy de Madrid. –¡Yo también!|–Ich komme aus Madrid. –Ich auch!
+Hablo alemán y español.|Ich spreche Deutsch und Spanisch.
+Hola, ¿qué tal?|Hallo, wie geht’s?
+Hablo inglés y español.|Ich spreche Englisch und Spanisch.
+Hablo español e inglés.|Ich spreche Spanisch und Englisch.
+También hablo gallego.|Ich spreche auch Galicisch.
+Lima es la capital de Perú.|Lima ist die Hauptstadt von Peru.
+Hablo un poco de quechua.|Ich spreche ein bisschen Quechua.
+Hablo español. ¿Y tú?|Ich spreche Spanisch. Und du?
+–¿Cómo te llamas? –Me llamo Tarek.|–Wie heißt du? –Ich heiße Tarek.
+–¿De dónde eres? –Soy de Perú.|–Woher kommst du? –Ich komme aus Peru.
+–¿Qué lenguas hablas? –Inglés y español.|–Welche Sprachen sprichst du? –Englisch und Spanisch.
+–¿Qué lenguas hablas? –Hablo español y alemán.|–Welche Sprachen sprichst du? –Ich spreche Spanisch und Deutsch.`,
+"1-0":`–¿Qué tal? –Muy bien.|–Wie geht’s? –Sehr gut.
+–¿Qué tal? –Bien, gracias.|–Wie geht’s? –Gut, danke.
+Y ella, ¿de dónde es?|Und sie, woher kommt sie?
+Y ella, ¿quién es?|Und sie, wer ist sie?
+–Hola, soy Juan. –Mucho gusto.|–Hallo, ich bin Juan. –Angenehm.
+Manuel es el compañero de clase de Lucía.|Manuel ist Lucías Mitschüler.`,
+"1-1":`¿Estudias o trabajas?|Studierst du oder arbeitest du?
+¿Eres de Granada o Sevilla?|Kommst du aus Granada oder Sevilla?
+¿Eres de La Coruña u Oviedo?|Kommst du aus La Coruña oder Oviedo?
+En clase hablamos español.|Im Unterricht sprechen wir Spanisch.
+Lucía no habla quechua.|Lucía spricht kein Quechua.
+¿Eres de aquí?|Bist du von hier?
+Mis amigos son de Madrid.|Meine Freunde kommen aus Madrid.
+Tú eres Alejandro, ¿verdad?|Du bist Alejandro, stimmt’s?
+Marta estudia en el instituto Parque Aluche.|Marta geht auf die weiterführende Schule Parque Aluche.
+Todavía no trabaja.|Sie arbeitet noch nicht.
+¿Todavía trabajas en Alemania?|Arbeitest du noch in Deutschland?
+¡Oye!, ¿cómo te llamas?|Hör mal, wie heißt du?
+Marta habla alemán y español.|Marta spricht Deutsch und Spanisch.
+Pues sí, soy de Alemania.|Naja, ja, ich komme aus Deutschland.
+Soy de Múnich.|Ich komme aus München.
+Soy de Múnich, por eso hablo alemán.|Ich komme aus München, deshalb spreche ich Deutsch.
+Lucía y Manuel estudian en casa.|Lucía und Manuel lernen zu Hause.
+Manuel practica inglés.|Manuel übt Englisch.
+–¿Quedamos en la plaza? –¡Vale!|–Treffen wir uns auf dem Platz? –Okay!
+¿Estudias en la universidad?|Studierst du an der Universität?
+Mi madre trabaja en una empresa.|Meine Mutter arbeitet in einem Unternehmen.
+¿Quedamos en el restaurante?|Treffen wir uns im Restaurant?
+Tu padre es alemán, ¿verdad?|Dein Vater ist Deutscher, stimmt’s?
+¿Sabe usted dónde está la señora Ruiz?|Wissen Sie, wo Frau Ruiz ist?
+¿Tienes familia en Marruecos?|Hast du Familie in Marokko?`,
+"1-2":`Los exámenes son difíciles.|Die Prüfungen sind schwierig.
+¿Qué significa «casa» en alemán?|Was bedeutet „casa“ auf Deutsch?
+Tarek estudia en la biblioteca.|Tarek lernt in der Bibliothek.
+¿Cuándo quedamos?|Wann treffen wir uns?
+Pedro trabaja mucho.|Pedro arbeitet viel.
+Silvia aprende español.|Silvia lernt Spanisch.
+Manuel y Lucía estudian juntos.|Manuel und Lucía lernen zusammen.
+Entonces, ¿cuándo quedamos?|Also, wann treffen wir uns?
+Alejandro vive en Madrid.|Alejandro wohnt in Madrid.
+Primero estudiamos, después charlamos.|Zuerst lernen wir, danach quatschen wir.
+El vocabulario no es difícil.|Der Wortschatz ist nicht schwierig.
+¿Quieres bailar?|Willst du tanzen?
+¿Comemos en la cafetería?|Essen wir in der Cafeteria?
+¿Cuándo compras el regalo?|Wann kaufst du das Geschenk?
+¿Quién comprende el diálogo?|Wer versteht den Dialog?`,
+"1-3":`¿Cuál es tu número de teléfono?|Wie ist deine Telefonnummer?
+Ana sube la escalera.|Ana geht die Treppe hoch.
+Estudias Administración y Finanzas, ¿verdad?|Du studierst Verwaltung und Finanzen, stimmt’s?
+Marta estudia Informática y Programación.|Marta studiert Informatik und Programmierung.
+Necesito ayuda.|Ich brauche Hilfe.
+Lucía habla con Manuel.|Lucía spricht mit Manuel.
+¿Tomamos un café?|Trinken wir einen Kaffee?
+¿Cómo se escribe «puerta»?|Wie schreibt man „puerta“?
+¿Cómo se escribe tu nombre?|Wie schreibt man deinen Vornamen?`,
+"2-0":`Tengo dos hermanos.|Ich habe zwei Geschwister.
+Vivo con mis padres en Múnich.|Ich wohne mit meinen Eltern in München.
+Vivo en la calle Olivar.|Ich wohne in der Straße Olivar.
+Ellas son Ana y su amiga Eva.|Sie (die beiden) sind Ana und ihre Freundin Eva.
+Tengo una hermana.|Ich habe eine Schwester.
+Tengo una hermana pequeña.|Ich habe eine kleine Schwester.
+Mi hermana se llama Eva.|Meine Schwester heißt Eva.
+Eva es inteligente.|Eva ist intelligent.
+¿Dónde vives?|Wo wohnst du?
+Mi apellido es Pérez García.|Mein Nachname ist Pérez García.
+Madrid es una ciudad.|Madrid ist eine Stadt.`,
+"2-1":`Creo que Juan y María son novios.|Ich glaube, dass Juan und María ein Paar sind.
+¿Qué quieres tomar?|Was willst du trinken?
+¿Tienes novio?|Hast du einen festen Freund?
+¡Qué bien!|Wie gut!
+Marta es muy simpática.|Marta ist sehr sympathisch.
+¡Qué guay!|Wie cool!
+No tengo hermanos.|Ich habe keine Geschwister.
+¿Quieres más café?|Willst du mehr Kaffee?
+¿Quiénes son ellos?|Wer sind die da?
+Mira, este es mi amigo Juan.|Schau mal, das ist mein Freund Juan.
+Él es muy estricto.|Er ist sehr streng.
+Su novia es bastante divertida.|Seine Freundin ist ziemlich lustig.
+Sus abuelos viven en una ciudad.|Seine Großeltern wohnen in einer Stadt.
+Eva es creativa.|Eva ist kreativ.
+Ana es mi mejor amiga.|Ana ist meine beste Freundin.`,
+"2-2":`Nuestra vecina es muy simpática.|Unsere Nachbarin ist sehr sympathisch.
+¿Sara es vuestra prima?|Ist Sara eure Cousine?
+¿Qué lees en internet?|Was liest du im Internet?
+–¿Dónde estás? –Estoy aquí.|–Wo bist du? –Ich bin hier.
+¿Vives en el centro?|Wohnst du im Zentrum?
+París es una ciudad ruidosa.|Paris ist eine laute Stadt.
+Tengo muchos amigos.|Ich habe viele Freunde.
+Es una zona tranquila.|Es ist ein ruhiger Bereich.
+Aquí hay poca gente.|Hier gibt es wenige Leute.
+Hay mucho tráfico en el centro.|Im Zentrum gibt es viel Verkehr.
+En Madrid hay muchos parques.|In Madrid gibt es viele Parks.
+¿Dónde hay una panadería?|Wo gibt es eine Bäckerei?
+Busco mi móvil. ¿Dónde está?|Ich suche mein Handy. Wo ist es?
+Estamos en la heladería.|Wir sind in der Eisdiele.
+Estamos al lado de la panadería.|Wir sind neben der Bäckerei.
+Vivo en un pueblo pequeño.|Ich wohne in einem kleinen Dorf.`,
+"2-3":`¿Vamos al parque?|Gehen wir in den Park?
+Mañana voy a Madrid.|Morgen fahre ich nach Madrid.
+Hoy no puedo ir al parque.|Heute kann ich nicht in den Park gehen.
+¿Quieres probar mi helado?|Willst du mein Eis probieren?
+El café cuesta un euro.|Der Kaffee kostet einen Euro.
+Siempre estudiamos juntos.|Wir lernen immer zusammen.
+¿Qué haces mañana?|Was machst du morgen?
+Tengo casi 18 años.|Ich bin fast 18 Jahre alt.
+A veces voy al teatro.|Manchmal gehe ich ins Theater.
+Tengo que hacer muchas cosas.|Ich muss viele Sachen machen.
+Hago mucho deporte.|Ich mache viel Sport.
+El regalo es para Eva.|Das Geschenk ist für Eva.`
+};
+const sxl=id=>(SX[id]||"").trim().split("\n").filter(Boolean).map(l=>{const i=l.indexOf("|");return{s:l.slice(0,i),g:l.slice(i+1)}});
+const sn=s=>s.toLowerCase().replace(/ß/g,"ss").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[¡!¿?.,…;:«»"“”„‚‘’'–—-]/g," ").replace(/\s+/g," ").trim();
+const shint=s=>s.split(/\s+/).map(w=>{const m=w.match(/[A-Za-zÁÉÍÓÚÜÑÄÖáéíóúüñäöß]/);return m?m[0]+"…":""}).filter(Boolean).join(" ");
+let Q=null;
+function opnS(id){Q={id,z:P.z||"ds",x:find(id),q:sh(sxl(id)),i:0,r:null,ok:0,wr:[],h:0,v:""};V={p:"sx"};render();scrollTo(0,0)}
+function schk(){const q=Q.q[Q.i],v=$("#in").value;Q.v=v;
+ if(Q.z=="ds"){const ok=sn(v)==sn(q.s);Q.r=ok?1:0;if(ok)Q.ok++;else Q.wr.push({q,a:v})}
+ else if(!sn(v)){Q.r=0;Q.wr.push({q,a:v})}
+ else if(sn(v)==sn(q.g)){Q.r=1;Q.ok++}
+ else Q.r=2;
+ render()}
+function sjd(ok){const q=Q.q[Q.i];if(ok)Q.ok++;else Q.wr.push({q,a:Q.v});snxt()}
+function snxt(){Q.i++;Q.r=null;Q.h=0;Q.v="";if(Q.i>=Q.q.length){S.sr=S.sr||{};const r=S.sr[Q.id]=S.sr[Q.id]||{};r[Q.z]={ok:Q.ok,n:Q.q.length,d:Date.now()};save()}render()}
+function ss(){const z=P.z||"ds";
+ return `<button class="back" onclick="go('sp')">‹ Spanisch</button><h1>Satzschreibtrainer</h1><p class="sub">${z=="ds"?"Du siehst den deutschen Satz und schreibst ihn auf Spanisch.":"Du siehst den spanischen Satz und schreibst die deutsche Übersetzung. Weicht sie von meiner ab, entscheidest du selbst, ob sie auch richtig war."} Innerhalb eines Textos ist die Reihenfolge immer zufällig. Die spanischen Sätze stammen aus der Vokabelliste, die deutschen Übersetzungen habe ich selbst gemacht.</p><div class="seg"><button class="${z=="sd"?"on":""}" onclick="P.z='sd';render()">S → D</button><button class="${z=="ds"?"on":""}" onclick="P.z='ds';render()">D → S</button></div>`+U.map(u=>{const xs=u.x.filter(x=>sxl(x.id).length);if(!xs.length)return"";
+ return `<section class="unit"><h2>${esc(u.n)}</h2><div style="margin-top:6px">`+xs.map(x=>{const n=sxl(x.id).length,r=(S.sr||{})[x.id]||{},t=["sd","ds"].filter(d=>r[d]).map(d=>LB[d]+" "+pt(r[d].ok,r[d].n)+" %").join(" · ");
+  return `<button class="item" onclick="opnS('${x.id}')"><div><b>${esc(x.n)}</b><span class="m">${n} Sätze${t?" · Letzte Runde "+t:""}</span></div></button>`}).join("")+`</div></section>`}).join("")}
+function sx(){const x=Q.x,n=Q.q.length,z=Q.z;
+ if(Q.i>=n)return `<h1>${esc(x.n)}</h1><p class="sub">${LB[z]}</p><div class="card"><b>${pt(Q.ok,n)} %</b><span>${Q.ok} von ${n} richtig</span></div>`+(Q.wr.length?`<h2>Nochmal anschauen</h2>`+Q.wr.map(v=>`<div class="miss"><b>${esc(v.q.s)}</b><span>${esc(v.q.g)}</span>${v.a?`<small>Deine Antwort: ${esc(v.a)}</small>`:""}</div>`).join(""):"")+`<button class="btn" onclick="opnS('${Q.id}')">Nochmal</button><button class="btn2" onclick="go('ss')">Zurück</button>`;
+ const q=Q.q[Q.i];
+ let h=`<p class="sub">${esc(x.n)} · ${LB[z]} · Satz ${Q.i+1} von ${n}</p>${bar(Q.i,n)}<div class="flash"><b>${esc(z=="ds"?q.g:q.s)}</b><small>${z=="ds"?"Schreibe den Satz auf Spanisch":"Schreibe die deutsche Übersetzung"}</small></div>`;
+ if(Q.r==null)h+=`<div class="row"><input id="in" value="${esc(Q.v||"")}" autocomplete="off" autocapitalize="off" onkeydown="if(event.key=='Enter')schk()"><button class="btn" onclick="schk()">Prüfen</button></div>`+(Q.h?`<p class="sub">Tipp: ${esc(shint(z=="ds"?q.s:q.g))}</p>`:`<button class="lnk" onclick="Q.v=$('#in').value;Q.h=1;render()">Tipp anzeigen</button>`);
+ else if(Q.r==2)h+=`<p>Deine Antwort: <b>${esc(Q.v)}</b></p><p>Mein Vorschlag: <b>${esc(q.g)}</b></p><p class="sub">War deine Antwort inhaltlich auch richtig?</p><div class="row"><button class="btn2" onclick="sjd(0)">Nein</button><button class="btn" onclick="sjd(1)">Ja, auch richtig</button></div>`;
+ else h+=`<p class="${Q.r?"ok":"bad"}">${Q.r?"Richtig":"Nicht ganz"}</p>`+(Q.r?"":`<p>${z=="ds"?"Richtig wäre":"Mein Vorschlag"}: <b>${esc(z=="ds"?q.s:q.g)}</b></p>`)+`<button class="btn" onclick="snxt()">Weiter</button>`;
+ return h+`<button class="btn2" onclick="go('ss')">Abbrechen</button>`}
+
+render();
+loadAcc();
+</script>
+</body>
+</html>
