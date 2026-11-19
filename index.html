@@ -1352,7 +1352,7 @@ const PAL_PRESETS = {
   night: {"--bg":"#0f172a","--fg":"#f8fafc","--mu":"#94a3b8","--c":"#1e293b","--bd":"#334155","--ac":"#38bdf8","--ac2":"#0c4a6e","--on":"#0f172a","--bad":"#f87171"}
 };
 
-let ACCREADY=0,ACC=[],STAB="normal",SET_U="",STAT_U="",NEW_TYPE="perm",G_DUR="60",G_CVAL="2",G_CUNIT="60",NU_VAL="",NP_VAL="";
+let ACCREADY=0,ACC=[],STAB="normal",SET_U="",STAT_U="",ACC_OPEN=false,NEW_TYPE="perm",G_DUR="60",G_CVAL="2",G_CUNIT="60",NU_VAL="",NP_VAL="";
 const MK="lernapp-mode";
 let S={k:{},f:[],t:0},V={p:"home"},T=null,DC=0,P={m:"k",d:0},tm=null,M=null,LM="",AM="",AE=0,AC="",LU="";
 const lsKey=()=>M&&M.k=="acc"?LS+":u:"+M.u:LS;
@@ -1857,15 +1857,17 @@ function set(){
     }
     h+=`<div style="display:flex;justify-content:space-between;align-items:baseline"><h2>Konten verwalten</h2><button class="lnk" style="font-size:.85em;padding:0" onclick="loadAcc()">↻ Aktualisieren</button></div>`;
     h+=ACC.length?ACC.map(a=>{
+    const renderAccCard=a=>{
       const stOpen=STAT_U===a.u,cfgOpen=SET_U===a.u,ns=isNoSave(a);
       const stats=stOpen&&!ns?getUserStats(a):null;
       const lastAct=stOpen?getLastActivity(a):null;
+      const expInfo=accType(a)==="guest"?" · läuft ab: "+fmtExpTime(a.state&&a.state.exp):"";
       return `
       <div class="card" style="padding:11px 14px;margin:8px 0">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
           <div onclick="toggleAccStat('${a.u}')" style="cursor:pointer;flex:1;min-width:0">
             <b style="font-size:1.05em">${esc(a.u)}</b>
-            <small style="display:block;color:var(--mu);margin-top:2px">${esc(fmtLast(a)+typeBadge(a))}</small>
+            <small style="display:block;color:var(--mu);margin-top:2px">${esc(fmtLast(a)+expInfo)}</small>
           </div>
           <div style="display:flex;gap:6px;flex:none">
             <button class="btn2 sm" title="Fortschritt & Aktivität" onclick="toggleAccStat('${a.u}')">${stOpen?"▾":"▸"}</button>
@@ -1915,8 +1917,29 @@ function set(){
           </div>
         </div>`:""}
       </div>`;
-    }).join("") : `<p class="sub">Noch keine Konten.</p>`;
+    };
 
+    const groups=[
+      {k:"perm",n:"Permanent"},
+      {k:"nosave",n:"Keine Sicherung"},
+      {k:"guest",n:"Gastzugänge"}
+    ].map(g=>({...g,list:ACC.filter(a=>accType(a)===g.k)})).filter(g=>g.list.length);
+
+    h+=`<div style="display:flex;justify-content:space-between;align-items:center;margin:20px 0 6px">
+      <button type="button" onclick="ACC_OPEN=!ACC_OPEN;render()" style="background:none;border:0;padding:0;font-size:.76em;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);font-weight:600;display:flex;align-items:center;gap:6px">
+        <span>${ACC_OPEN?"▾":"▸"}</span>
+        <span>Konten verwalten (${ACC.length})</span>
+      </button>
+      <button class="lnk" style="font-size:.85em;padding:0" onclick="loadAcc()">↻ Aktualisieren</button>
+    </div>`;
+
+    if(ACC_OPEN){
+      h+=groups.length?groups.map(g=>`
+        <div style="margin:12px 0 4px">
+          <small style="display:block;color:var(--mu);font-weight:600;font-size:.82em;margin-bottom:4px">${esc(g.n)} (${g.list.length})</small>
+          ${g.list.map(renderAccCard).join("")}
+        </div>`).join(""):`<p class="sub">Noch keine Konten.</p>`;
+    }
     h+=`<h2>Neues Konto anlegen</h2>
     <div class="seg" style="margin:6px 0 8px">
       <button type="button" class="${NEW_TYPE=="perm"?"on":""}" onclick="setNewType('perm')">Permanent</button>
