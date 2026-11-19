@@ -1352,7 +1352,7 @@ const PAL_PRESETS = {
   night: {"--bg":"#0f172a","--fg":"#f8fafc","--mu":"#94a3b8","--c":"#1e293b","--bd":"#334155","--ac":"#38bdf8","--ac2":"#0c4a6e","--on":"#0f172a","--bad":"#f87171"}
 };
 
-let ACCREADY=0,ACC=[],STAB="normal",SET_U="",STAT_U="",ACC_OPEN=false,NEW_TYPE="perm",G_DUR="60",G_CVAL="2",G_CUNIT="60",NU_VAL="",NP_VAL="";
+let ACCREADY=0,ACC=[],STAB="normal",SET_U="",STAT_U="",ACC_OPEN=false,NEW_TYPE="perm",G_DUR="60",G_CVAL="2",G_CUNIT="60",NU_VAL="",NP_VAL="",REM=false;
 const MK="lernapp-mode";
 let S={k:{},f:[],t:0},V={p:"home"},T=null,DC=0,P={m:"k",d:0},tm=null,M=null,LM="",AM="",AE=0,AC="",LU="";
 const lsKey=()=>M&&M.k=="acc"?LS+":u:"+M.u:LS;
@@ -1590,11 +1590,12 @@ function loadS(){
 
 function restore(){
   try{
-    const m=localStorage.getItem(MK)||"";
+    const lm=localStorage.getItem(MK)||"",sm=sessionStorage.getItem(MK)||"";
+    const m=lm||sm;
     if(m.indexOf("acc:")==0){
       const q=m.split(":"),a=ACC.find(x=>x.u==q[1]&&x.h.slice(0,16)==q[2]);
-      if(a&&!isExpired(a))M={k:"acc",u:a.u};
-      else localStorage.removeItem(MK);
+      if(a&&!isExpired(a)){M={k:"acc",u:a.u};REM=Boolean(lm)}
+      else{localStorage.removeItem(MK);sessionStorage.removeItem(MK)}
     }
   }catch(e){}
   loadS();
