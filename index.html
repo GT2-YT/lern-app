@@ -1676,12 +1676,17 @@ async function initDb(){
   }catch(e){}
 }
 
-function setMode(m){
+function setMode(m,rem){
+  if(rem!==undefined)REM=Boolean(rem);
   M=m;STAB="normal";SET_U="";STAT_U="";
   try{
+    localStorage.removeItem(MK);
+    sessionStorage.removeItem(MK);
     if(m&&m.k=="acc"){
       const a=ACC.find(x=>x.u==m.u);
-      localStorage.setItem(MK,"acc:"+a.u+":"+a.h.slice(0,16));
+      const tok="acc:"+a.u+":"+a.h.slice(0,16);
+      if(REM)localStorage.setItem(MK,tok);
+      else sessionStorage.setItem(MK,tok);
     }
   }catch(e){}
   loadS();T=null;Q=null;V={p:"home"};LM="";AM="";
@@ -1696,7 +1701,9 @@ async function hashPw(pw,salt,it){
 }
 
 async function login(){
-  const u=un($("#lu").value),p=$("#lp").value;LU=u;
+  const u=un($("#lu").value),p=$("#lp").value;
+  const rem=$("#rem")?$("#rem").checked:REM;
+  LU=u;REM=rem;
   const a=ACC.find(x=>x.u==u);
   if(a&&isExpired(a)){
     ACC=await cleanupExpired(ACC);
@@ -1709,14 +1716,13 @@ async function login(){
     catch(e){LM="Die Anmeldung geht in diesem Browser leider nicht.";render();return}
   }
   if(!ok){LM="Benutzername oder Passwort stimmt nicht.";render();return}
-  setMode({k:"acc",u:a.u});
+  setMode({k:"acc",u:a.u},rem);
 }
 
 function logout(msg){
-  try{localStorage.removeItem(MK)}catch(e){}
+  try{localStorage.removeItem(MK);sessionStorage.removeItem(MK)}catch(e){}
   M=null;STAB="normal";SET_U="";STAT_U="";loadS();Q=null;T=null;V={p:"home"};LM=msg||"";render();
 }
-
 function genPw(targetId){
   const c="abcdefghjkmnpqrstuvwxyz23456789";let p="";
   crypto.getRandomValues(new Uint8Array(10)).forEach(v=>{p+=c[v%c.length]});
