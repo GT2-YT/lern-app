@@ -1815,8 +1815,12 @@ async function changePw(u){
   if(error){AM="Fehler beim Ändern: "+error.message;AE=1;render();return}
   const a=ACC.find(x=>x.u==u);
   if(a){a.s=s;a.i=i;a.h=h}
-  if(M&&M.u==u){
-    try{localStorage.setItem(MK,"acc:"+u+":"+h.slice(0,16))}catch(e){}
+ if(M&&M.u==u){
+    const tok="acc:"+u+":"+h.slice(0,16);
+    try{
+      if(localStorage.getItem(MK))localStorage.setItem(MK,tok);
+      if(sessionStorage.getItem(MK))sessionStorage.setItem(MK,tok);
+    }catch(e){}
   }
   SET_U="";
   AM="Passwort für „"+u+"“ wurde erfolgreich geändert.";AE=0;
@@ -1836,8 +1840,7 @@ async function delAcc(u){
 }
 
 const note=()=>AM?`<p class="${AE?"bad":"ok"}">${esc(AM)}</p>`:"";
-const lf=()=>`<div class="login"><input id="lu" value="${esc(LU)}" placeholder="Benutzername" autocomplete="username" autocapitalize="off" autocorrect="off"><input id="lp" type="password" placeholder="Passwort" autocomplete="current-password" onkeydown="if(event.key=='Enter')login()"><button class="btn" onclick="login()">Anmelden</button>${LM?`<p class="bad">${esc(LM)}</p>`:""}</div>`;
-
+const lf=()=>`<div class="login"><input id="lu" value="${esc(LU)}" placeholder="Benutzername" autocomplete="username" autocapitalize="off" autocorrect="off"><input id="lp" type="password" placeholder="Passwort" autocomplete="current-password" onkeydown="if(event.key=='Enter')login()"><label style="display:flex;align-items:center;gap:8px;margin:8px 0 4px;cursor:pointer;color:var(--mu);font-size:.92em;user-select:none"><input id="rem" type="checkbox" ${REM?"checked":""} onchange="REM=this.checked" style="width:auto;margin:0;accent-color:var(--ac)"><span>Browser merken (angemeldet bleiben)</span></label><button class="btn" onclick="login()">Anmelden</button>${LM?`<p class="bad">${esc(LM)}</p>`:""}</div>`;
 function gate(){
   if(!ACCREADY)return `<h1>Lern-App</h1><p class="sub">Wird geladen …</p>`;
   return `<h1>Lern-App</h1><p class="sub">Bitte melde dich mit Benutzername und Passwort an.</p>${lf()}${ACC.length?"":`<h2>Erstes Konto anlegen</h2><p class="sub">Noch keine Konten in Supabase vorhanden. Lege jetzt das erste Konto an:</p><div class="login"><input id="gu" placeholder="Neuer Benutzername" autocapitalize="off" autocorrect="off"><input id="gp" type="text" placeholder="Passwort (mind. 6 Zeichen)" autocapitalize="off" autocorrect="off"><button class="lnk" onclick="genPw('gp')">Passwort erzeugen</button><button class="btn" onclick="genAcc()">Konto direkt anlegen</button></div>${note()}`}`;
