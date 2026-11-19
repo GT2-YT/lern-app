@@ -1850,13 +1850,11 @@ function set(){
     <button class="${STAB=="admin"?"on":""}" onclick="setTab('admin')">Administration</button>
   </div>`;
 
-  if(STAB=="admin"){
+if(STAB=="admin"){
     if(!isAdmin()){
       h+=`<h2>Administration</h2><div class="card"><b>Kein Zugriff</b><span>Dieser Bereich ist nur für (${esc(ADMIN_USERS.join(", "))}) freigeschaltet.</span></div>`;
       return h;
     }
-    h+=`<div style="display:flex;justify-content:space-between;align-items:baseline"><h2>Konten verwalten</h2><button class="lnk" style="font-size:.85em;padding:0" onclick="loadAcc()">↻ Aktualisieren</button></div>`;
-    h+=ACC.length?ACC.map(a=>{
     const renderAccCard=a=>{
       const stOpen=STAT_U===a.u,cfgOpen=SET_U===a.u,ns=isNoSave(a);
       const stats=stOpen&&!ns?getUserStats(a):null;
